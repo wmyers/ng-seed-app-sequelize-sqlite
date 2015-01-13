@@ -1,0 +1,9 @@
+form.user-form(name="signupForm")
+  h2 Sign Up
+  label(for='email') Email
+  input.form-control(type='email', name='email', ng-model='credentials.email')
+  .spacer
+  label(for='password') Password
+  input.form-control(type='password', name='password', ng-model='credentials.password')
+  .spacer
+  .dash-button(ng-click='signUp()') Sign Up

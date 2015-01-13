@@ -1,0 +1,17 @@
+// A quick and dirty debug window, useful for showing JSON output.
+pre.debug {
+  &:before {
+    display: block;
+    content: 'DEBUG';
+    background-color: #06BD55;
+    color: white;
+    padding: 3px;
+    margin: -2px; margin-bottom: 0;
+  }
+
+  padding: 2px;
+  font-size: 0.8rem;
+  background-color: #f6f6f6;
+  border: solid 1px #06BD55;
+  border-radius: 3px;
+}

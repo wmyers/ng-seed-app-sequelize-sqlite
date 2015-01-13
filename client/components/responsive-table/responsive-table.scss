@@ -1,0 +1,109 @@
+//scss global dependencies:
+// - $color-primary
+
+$responsive-table-breakpoint: $tablet;
+$responsive-table-color: #777;
+$responsive-table-background-color: #f4f4f4;
+
+.responsive-table{
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+  color: $responsive-table-color;
+  background: $responsive-table-background-color;
+  font-size: 0.8rem;
+
+  .normal-table-header{
+    display: table-header-group;
+    @media #{$responsive-table-breakpoint} {
+      display: none;
+    }
+  }
+  .normal-table-row-group{
+    display: table-row-group;
+  }
+  .normal-table-row{
+    display: table-row;
+  }
+  .normal-table-col-group{
+    display: table-column-group;
+  }
+  .normal-table-col{
+    display: table-column;
+  }
+  .normal-table-cell{
+    display: table-cell;
+    border-bottom: 1px solid lighten($color-primary, 20%);
+    padding: 0.4em 0.2em 0.4em 0.8em;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .normal-table-header .normal-table-cell {
+    font-size: 1rem;
+    padding-left: 0.6em;
+    color:darken($color-primary, 15%);
+  }
+  .normal-table-cell.responsive{
+    @media #{$responsive-table-breakpoint} {
+      font-size: 1rem;
+      color:darken($color-primary, 15%);
+    }
+    a.expander{
+      display: none;
+      @media #{$responsive-table-breakpoint} {
+        float:right;
+        display: block;
+        cursor: pointer;
+      }
+    }
+    .show-table{
+      @media #{$responsive-table-breakpoint} {
+        display:table;
+      }
+    }
+  }
+  .normal-table-row > div:not(.responsive) {
+    @media #{$responsive-table-breakpoint} {
+      display: none;
+    }
+  }
+  .small-table{
+    display:none;
+    border-collapse: collapse;
+    color: $responsive-table-color;
+    margin: 10px 20px 10px 10px;
+    font-size: 0.8rem;
+
+  }
+  .small-table-col-group{
+    display: table-column-group;
+  }
+  .small-table-col{
+    display: table-column;
+  }
+  .small-table-row-group{
+    display: table-row-group;
+  }
+  .small-table-row{
+    display: table-row;
+    border-bottom: 1px solid lighten($color-primary, 30%);
+  }
+  .small-table-row:last-child {
+    border-bottom: 0 ;
+  }
+  .small-table-cell{
+    display: table-cell;
+    padding: 0.4em 0.2em;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .small-table-cell.header{
+    width:200px;
+    padding-right:20px;
+    color:darken($color-primary, 10%);
+  }
+}

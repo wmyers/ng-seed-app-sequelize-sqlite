@@ -1,0 +1,41 @@
+/**
+ * Band-aid classes so you don't interrupt your markup-writing flow.
+ */
+
+/**
+ * LAYOUT
+ */
+
+.full-width {width: 100%;}
+.full-height {height: 100%;}
+
+.inline {display: inline;}
+.inline-block {display: inline-block;}
+.block {display: block;}
+
+.float-left {float: left;}
+.float-right {float: right;}
+
+/**
+ * MARGINS & SPACING
+ */
+
+.no-top-spacer {margin-top: 0 !important;}
+.half-top-spacer {margin-top: 10px;}
+.top-spacer {margin-top: 20px;}
+
+.no-spacer {margin-bottom: 0 !important;}
+.half-spacer {margin-bottom: 10px;}
+.spacer {margin-bottom: 20px;}
+
+/**
+ * TEXT
+ */
+
+.text-left {text-align: left;}
+.text-center {text-align: center;}
+.text-right {text-align: right;}
+
+.weight-bold, .strong {font-weight: bold;}
+.weight-normal {font-weight: normal;}
+.weight-light {font-weight: 300;}

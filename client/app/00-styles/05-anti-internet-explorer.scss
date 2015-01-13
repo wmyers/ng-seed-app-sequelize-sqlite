@@ -1,0 +1,14 @@
+// A scary vicious pinkish-red header that is supposed to cause the user grief if he is using Internet Explorer 8 or below. Will usually be wrapped in an < IE9 conditional tag. 
+
+.anti-internet-explorer {
+  background: #ff0047;
+  color: white;
+  padding: 5px;
+  margin: 0;
+  font-size: 14px;
+}
+
+.anti-internet-explorer a {
+  color: white;
+  text-decoration: underline;
+}

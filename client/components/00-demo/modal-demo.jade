@@ -1,0 +1,7 @@
+p Modal Demo
+.dash-button(ng-click='launchModal("emailIntercepted", 1)') Launch Modal 1
+.clearfix
+br
+.dash-button(ng-click='launchModal("wipeHardDrive", 2, true)') Launch Modal 2
+p(ng-show='modalOKConfig !== null') Received OK from modal with contentId: {{modalOKConfig.contentId}} 
+  | and targetId: {{modalOKConfig.targetId}} 

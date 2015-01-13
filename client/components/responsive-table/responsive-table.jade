@@ -1,0 +1,14 @@
+.responsive-table
+  //-columns
+  .normal-table-col-group
+    //- repeating these as a best practice
+    .normal-table-col(ng-repeat="col in formattedTableData.cols")
+  //-headers
+  .normal-table-header
+    .normal-table-row
+      .normal-table-cell.responsive {{::formattedTableData.firstHeaderName}}
+      .normal-table-cell(ng-repeat="headerName in formattedTableData.secondaryHeaderNames") 
+        {{::headerName}}
+  //-rows
+  .normal-table-row-group
+    responsive-table-row.normal-table-row(ng-repeat="row in formattedTableData.rows" row="row")

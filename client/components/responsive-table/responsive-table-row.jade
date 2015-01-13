@@ -1,0 +1,20 @@
+.normal-table-cell.responsive(
+  ng-init="props = { clicked: false }") {{::row.firstCell.value}}
+  //-only displayed when the media breakpoint is hit (usually $tablet)
+  a.expander(
+    ng-click="props.clicked = !props.clicked")
+    i.fa(ng-class="!props.clicked ? 'fa-chevron-down' : 'fa-chevron-up'")
+  //----------------------
+  //-only displayed when the media breakpoint is hit (usually $tablet)
+  .small-table(ng-class="{'show-table': props.clicked }")
+    //-columns (only two for key/value pairs display)
+    .small-table-col-group
+      .small-table-col
+      .small-table-col
+    //-rows of key/value pairs
+    .small-table-row-group
+      .small-table-row(ng-repeat="cell in row.secondaryCells")
+        .small-table-cell.header {{::cell.name}}
+        .small-table-cell {{::cell.value}}
+  //----------------------
+.normal-table-cell(ng-repeat="cell in row.secondaryCells track by cell.value") {{::cell.value}}

@@ -1,0 +1,10 @@
+.accordion-item-bar(
+  ng-init="props = {expanded:false}"
+  ng-class="{expanded : props.expanded}")
+  a.expander(ng-click="props.expanded = !props.expanded")
+    i.fa(ng-class="!props.expanded ? 'fa-chevron-down' : 'fa-chevron-up'")
+  a.expander(ng-click="deleteClick()")
+    b x
+  .accordion-item-name {{::item.name}}
+div.clearfix
+.accordion-item-content-wrap(ng-show="props.expanded" ng-transclude)

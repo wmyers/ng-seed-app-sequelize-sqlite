@@ -1,0 +1,5 @@
+.responsive-tabs
+  ul
+    li(ng-repeat="pane in panes track by pane.title" ng-class="{active:pane.selected}")
+      a(ng-click="select(pane)" ng-class="{selected:pane.selected}") {{::pane.title}}
+.tabbed-page-content(ng-transclude)

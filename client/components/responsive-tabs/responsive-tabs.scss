@@ -1,0 +1,77 @@
+//HORIZONTAL RESPONSIVE PAGE TABS & PANES
+.responsive-tabs{
+  margin-bottom: 20px;
+  ul
+  {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    white-space:nowrap;
+    list-style-type: none;
+    counter-reset: tabnum;
+  }
+
+  li
+  {
+    margin: 0px;
+    padding: 0px;
+    white-space: nowrap;
+    display: inline-block;
+    width: 150px;
+  }
+
+  li a
+  {
+    color: #333;
+    text-decoration: none;
+    background-color: #ccc;
+    border-right:  2px solid #eee; /*gutter created with border*/
+    padding: .2em .7em;
+    cursor: pointer;
+    display: inline-block;
+    width: 150px; /* same as li, fixing without gutter */
+    white-space: nowrap;
+    // text-overflow: ellipsis;
+    overflow:hidden;
+  }
+
+  li a:before {
+    counter-increment: tabnum;
+    content: counter(tabnum) ". ";
+    //use whitespace to push the text out of view and just leave the tabnum
+    @media #{$tablet} {
+      content: counter(tabnum) "\00a0 \00a0 \00a0 \00a0 \00a0 ";
+    }
+  }
+
+  li a.selected
+  {
+    background-color: #999;
+    color: #ffcc00;
+  }
+
+  li a:hover
+  {
+    background-color: #999;
+    color: #fff;
+  }
+
+  li:not(.arrow)
+  {
+    @media #{$tablet} {
+      width: 35px;
+    }
+  }
+
+  li a:not(.arrow)
+  {
+    @media #{$tablet} {
+      width: 35px;
+    }
+  }
+
+  .arrow // redundant
+  {
+    width: 35px;
+  }
+}

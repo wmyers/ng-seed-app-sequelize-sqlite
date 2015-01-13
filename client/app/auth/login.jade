@@ -1,0 +1,19 @@
+form.user-form(name="loginForm")
+  h2 Login
+  label(for='email') Email
+  input.form-control(type='email', name='email', ng-model='credentials.email')
+  .spacer
+  label(for='password') Password
+  input.form-control(type='password', name='password', ng-model='credentials.password')
+  .half-spacer
+  input(type="checkbox", name="persist", ng-model="credentials.persist")
+  label(for="persist")  Remember me
+  .spacer
+  .dash-button(ng-click='login()') Login
+hr  
+.user-form
+  .dash-button(ng-click='signuphere()') Sign up here
+
+//- pre.debug(style="margin: 40px;").
+  authSrvc's state:
+  {{ authService | json }}

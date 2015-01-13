@@ -1,0 +1,11 @@
+.modal(ng-show='service.shown')
+  .modal-overlay(ng-click='service.reset()')
+  .modal-dialog
+    .modal-close(ng-click='service.reset()') x
+    .modal-dialog-content(ng-transclude)
+    .modal-buttons
+      a.modal-button(
+        ng-click='okButtonClick()') OK
+      a.modal-button(
+        ng-show='service.cancellable'
+        ng-click='service.reset()') Cancel

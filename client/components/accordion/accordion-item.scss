@@ -1,0 +1,41 @@
+//scss global dependencies:
+// - %curved-corners mixin
+// - $color-primary
+
+.accordion-item-bar{
+  @extend %curved-corners;
+  width: 100%;
+  background-color: $color-primary;
+  padding:0.3em 0.5em;
+  margin-bottom: 10px;
+  float: left;
+  .accordion-item-name{
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.95rem;
+  }
+  a.expander{
+    float:right;
+    display: block;
+    cursor: pointer;
+    padding-left: 10px;
+    color:darken($color-primary, 15%);
+  }
+  a.expander:hover{
+    color:white;
+  }
+}
+.accordion-item-bar.expanded{
+  background-color: darken($color-primary, 10%);
+  a{
+    color:white;
+  }
+  a:hover{
+    color:darken($color-primary, 15%);
+  }
+}
+.accordion-item-content-wrap{
+  padding: 15px 10px;
+}

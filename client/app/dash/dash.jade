@@ -1,0 +1,19 @@
+.header-table(ng-init="props = {showSideBar:dashConfig.showSideBarAtStart}")
+  .header-row
+    .header-cell.sidebar-trigger(
+      ng-click="props.showSideBar = !props.showSideBar")
+      i.fa.fa-bars.fa-lg(
+        ng-class="{'sidebar-shown' : props.showSideBar}")
+    .header-cell.brand {{::dashConfig.brand}}
+    .header-cell.user Logged in as {{::userInfo.email}} 
+
+.body-content-wrapper
+  .body-content
+    .sidebar(ng-class="{'sidebar-shown' : props.showSideBar}")
+      ul.nav
+        li(ui-sref-active="active" ng-repeat="navItem in dashConfig.navItems")
+          a(ui-sref='{{::navItem.route}}') {{::navItem.title}}
+        .logout(ng-show="{{::isLoggedIn}}")
+          a(ng-click='logout()') Log out
+    .page-content(ng-class="{'sidebar-shown' : props.showSideBar}")
+      ui-view

@@ -1,0 +1,19 @@
+@keyframes effect-pulse {
+  from { box-shadow: 0 0 50px 0px rgba(255,255,255,0); }
+  50% { box-shadow: 0 0 50px 0px rgba(255,255,255,0.4); }
+  to { box-shadow: 0 0 50px 0px rgba(255,255,255,0); }
+}
+/* Spinner */
+.effect-pulse {
+    animation: effect-pulse 2s infinite linear;
+}
+
+@keyframes effect-bob-margin-up {
+  from { margin-top: 0; }
+  50% { margin-top: -10px; }
+  to { margin-top: 0; }
+}
+/* Spinner */
+.effect-bob-margin-up {
+    animation: effect-bob-margin-up 2s infinite ease-in-out;
+}

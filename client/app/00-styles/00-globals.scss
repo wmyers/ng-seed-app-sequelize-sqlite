@@ -1,0 +1,33 @@
+//Global variables
+$fonts-default: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$fonts-brand: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+$corner-radius-standard: 4px;
+
+$color-primary: #03dd99;
+$color-selection: #cccccc;
+$color-links: #7ba2ac;
+
+//MEDIA QUERY VARIABLES
+//Usage @media #{$tablet} { Your styles here }
+
+$mobile: 'only screen and (max-width: 480px)';
+$small-tablet: 'only screen and (max-width: 641px)';
+$tablet: 'only screen and (max-width: 768px)';
+$not-tablet: 'only screen and (min-width: 769px)';
+$desktop: 'only screen and (max-width: 961px)';
+
+// do I need this crap?
+/* Responsive: Portrait tablets and up */
+// @media screen and (min-width: 768px) {
+//   .container {
+//       max-width: 730px;
+//   }
+// }
+
+// .browsehappy {
+//     margin: 0.2em 0;
+//     background: #ccc;
+//     color: #000;
+//     padding: 0.2em 0;
+// }

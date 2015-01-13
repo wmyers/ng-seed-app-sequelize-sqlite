@@ -1,0 +1,5 @@
+p Accordion Demo
+
+accordion-item(ng-repeat="item in items" item="item" index="$index")
+  p {{::item.title}}
+  p.multi-line {{::item.body}}

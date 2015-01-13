@@ -1,0 +1,39 @@
+/**
+ * LAYOUT OVERRIDES
+ */
+
+* {
+  box-sizing: border-box; // Prefer this box model, for sanity.
+}
+
+html, body {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+// The height-100s below are needed so that we can
+// propagate height down to the actual template (so they can render fullscreen if they want to).
+html {
+  height: 100%;
+}
+body {
+  height: 100%; // Body will always be 100%. Scroll happens on its child ui-view.
+  min-height: 100%;
+}
+body > [ui-view] {
+  height: 100%;
+  min-height: 100%;
+  // Do we need a scroll: auto or something here?
+}
+
+// Freeform-resizable textarea usually looks poor,
+// most of the time what we want is a vertical-only resize.
+textarea {
+  resize: vertical;
+}
+
+//multi-line p
+p.multi-line{
+  white-space: pre;
+}
