@@ -25,36 +25,30 @@ angular.module('authMdul')
     logout: logout,
     signUp: signUp,
     getAuthenticated: getAuthenticated
-    // refreshUserData: refreshUserData
   };
 
   /*
   Makes http request for jwt token if it is not already stored in the browser
   */
   function getLoginToken(credentials) {
-    //console.log(credentials);
-    var deferred = $q.defer();
     if(credentials === 'stored'){
       var token = $window.localStorage.accessToken || $window.sessionStorage.accessToken;
       if (token){
-        deferred.resolve(registerToken(token));
+        return $q.when(registerToken(token));
       }else{
-        deferred.reject('No local token available');
+        return $q.reject('No local token available');
       }
     }else{
-      $http.post('/api/auth/login', credentials).then(
-        function(result) {
-          //console.log('/api/auth/login result = ', result.data);
-          var token = result.data;
-          $window[credentials.persist ? 'localStorage' : 'sessionStorage'].accessToken = token;
-          deferred.resolve(registerToken(token));
-        },
-        function(error){
-          deferred.reject('Unable to get remote token. '+error.data);
-        }
-      );
+      return $http.post('/api/auth/login', credentials)
+      .then(function(result) {
+        var token = result.data;
+        $window[credentials.persist ? 'localStorage' : 'sessionStorage'].accessToken = token;
+        return $q.when(registerToken(token));
+      })
+      .catch(function(error){
+        return $q.reject('Unable to get remote token. '+error.data);
+      });
     }
-    return deferred.promise;
   }
 
   /*
@@ -73,51 +67,39 @@ angular.module('authMdul')
   Makes http request for user data if it is not already available
   */
   function getUserData(){
-    var deferred = $q.defer();
     if(self.user !== null){
-      deferred.resolve(self.user);
+      return $q.when(self.user);
     }else{
-      $http.get('/api/auth/me').then(
-        function (result) {
-          // console.log('/api/auth/me result = ', result.data);
-          var userData = result.data;
-          //store userData in service
-          self.user = userData;
-          deferred.resolve(userData);
-        },
-        function(error){
-          deferred.reject('Unable to get remote user data. '+error.data);
-        }
-      );
+      return $http.get('/api/auth/me')
+      .then(function (result) {
+        self.user = result.data;
+        return $q.when(self.user);
+      })
+      .catch(function(error){
+        return $q.reject('Unable to get remote user data. '+error.data);
+      });
     }
-    return deferred.promise;
   }
 
   /*
   Gets token and then gets user data, then sets isLoggedIn state
   */
   function login(credentials){
-    var deferred = $q.defer();
-    getLoginToken(credentials)
-      .then(getUserData)
-      .then(
-        function(result){
-          //set logged in state here
-          self.isLoggedIn = true;
-          deferred.resolve(result);
-        },
-        function(error){
-          deferred.reject(error);
-        }
-      );
-    return deferred.promise;
+    return getLoginToken(credentials)
+    .then(getUserData)
+    .then(function(result){
+      self.isLoggedIn = true;
+      return $q.when(result);
+    })
+    .catch(function(error){
+      return $q.reject(error);
+    });
   }
 
   /*
   Disposes of token locally and nullifies user data
   */
   function logout() {
-    var deferred = $q.defer();
     if(self.isLoggedIn){
       self.isLoggedIn = false;
       //clear token
@@ -134,59 +116,42 @@ angular.module('authMdul')
       }
       //clear user data
       self.user = null;
-      deferred.resolve({isLoggedOut:true});
+      return $q.when({isLoggedOut:true});
     }else{
-      deferred.reject({isLoggedOut:false});
+      return $q.reject({isLoggedOut:false});
     }
-    return deferred.promise;
   }
 
   /*
   Sign-up for the first time
   */
   function signUp(credentials){
-    var deferred = $q.defer();
-    $http.post('/api/user', credentials).then(
-      function(result) {
-        var userData = result.data;
-        deferred.resolve(userData);
-      },
-      function(error){
-        deferred.reject('Unable to create user. '+error.data);
-      }
-    );
-    return deferred.promise;
+    return $http.post('/api/user', credentials)
+    .then(function(result) {
+      return $q.when(result.data);
+    })
+    .catch(function(e) {
+      return $q.reject('Unable to create user. '+e.data);
+    });
   }
 
   /*
   Use with any authentication-required page routing
   */
   function getAuthenticated(){
-    var deferred = $q.defer();
     if(self.isLoggedIn){
-      deferred.resolve({authenticated:true});
+      return $q.when({authenticated:true});
     }else{
       //attempt login with any stored token
-      self.login('stored').then(
-        function(result){
-          deferred.resolve({authenticated:true, result:result});
-        },
-        function(error){
-          deferred.reject({authenticated:false, error:error.data});
-        }
-      );
+      return self.login('stored')
+      .then(function(result){
+        return $q.when({authenticated:true, result:result});
+      })
+      .catch(function(error){
+        return $q.reject({authenticated:false, error:error.data});
+      });
     }
-    return deferred.promise;
   }
-
-  // function refreshUserData() {
-  //   return $http.get('/api/auth/me').then(
-  //     function (result) {
-  //       self.user = result.data;
-  //       return result.data;
-  //     } // Todo: Lacks error handler.
-  //   );
-  // }
 
   return self;
 
