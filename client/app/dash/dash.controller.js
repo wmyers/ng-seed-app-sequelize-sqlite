@@ -22,15 +22,13 @@ angular.module('dashMdul')
     //TODO route error messages to modal dialog
 
     $scope.logout = function () {
-      authSrvc.logout().then(
-        function (result) {
-          $scope.userInfo = null;
-          $state.go('login');
-        },
-        function (error) {
-          console.log(error);
-        }
-      );
+      authSrvc.logout()
+      .then(function (result) {
+        $scope.userInfo = null;
+        $state.go('login');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     };
-
 }]);
