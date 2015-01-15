@@ -1,6 +1,6 @@
 "use strict";
 
-var bcrypt  = require('bcrypt-as-promised');
+var bcrypt = require("bluebird").promisifyAll(require('bcrypt-nodejs'));
 var validator = require('validator');
 
 module.exports = function(sequelize, DataTypes) {
@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull:false
     }
   });
-  //validate
+  //validate hook
   User.hook('beforeValidate', function(user, options) {
     if(!options.skipValidation){
       //TODO check the email does not already exist in the db
@@ -28,26 +28,24 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  //hash the password
+  //hash the password hook
   User.hook('afterCreate', function(user, options) {
-    bcrypt.hash(user.password, 10).then(
-      function(hashedpswd){
-        user.password = hashedpswd;
-        //set validation to skip when saving the
-        //hashed password over the non-hashed password
-        user.save({skipValidation:true}).then(
-          function(success){
-            return sequelize.Promise.resolve(user);
-          },
-          function(error){
-            return sequelize.Promise.reject(error.toString());
-          }
-        )
-      },
-      function(error){
-        return sequelize.Promise.reject(error.toString());
-      }
-    );
+    bcrypt.genSaltAsync(10)
+    .then(function(result){
+      return bcrypt.hashAsync(user.password, result, null)
+    })
+    .then(function(hashedpswd){
+      //set validation to skip when saving the
+      //hashed password over the non-hashed password
+      user.password = hashedpswd;
+      return user.save({skipValidation:true});
+    })
+    .then(function(user){
+      return sequelize.Promise.resolve(user);
+    })
+    .catch(function(error){
+      return sequelize.Promise.reject(error.toString());
+    });
   });
   return User;
 };
