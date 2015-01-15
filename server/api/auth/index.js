@@ -17,28 +17,23 @@ router.post('/login', function(req, res, next) {
   }
   //Sequelize query
   return models.User.find({
-      where: {email: req.body.email}
+    where: {email: req.body.email}
   }).then(function(user) {
-    //if user === null the promise is still resolved
-    //isn't that a bit pants?
-    if(user){
-      //user exists, check password
-      return bcrypt.compareAsync(req.body.password, user.password)
-      .then(function (success){
-        //all good
-        var payload = {
-          id: user.id,
-          exp: Math.ceil(moment().add(5, 'days').format('X'))
-        }
-        var token = jwt.encode(payload, sessionSecret);
-        return res.send(token);
-      })
-      .catch(function(error){
-        return res.status(400).send(error.toString());
-      });
-    }else{
+    //if user === null the promise is still resolved isn't that a bit pants?
+    if(!user){
       return res.status(400).send('User does not exist');
     }
+    //user exists, check password
+    return bcrypt.compareAsync(req.body.password, user.password)
+    .then(function (success){
+      //all good
+      var payload = {
+        id: user.id,
+        exp: Math.ceil(moment().add(5, 'days').format('X'))
+      }
+      var token = jwt.encode(payload, sessionSecret);
+      return res.send(token);
+    })
   })
   .catch(function(error){
     return res.status(400).send(error.toString());

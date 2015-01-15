@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull:false
     }
   });
-  //validate
+  //validate hook
   User.hook('beforeValidate', function(user, options) {
     if(!options.skipValidation){
       //TODO check the email does not already exist in the db
@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  //hash the password
+  //hash the password hook
   User.hook('afterCreate', function(user, options) {
     bcrypt.genSaltAsync(10)
     .then(function(result){
