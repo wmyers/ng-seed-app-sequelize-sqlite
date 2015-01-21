@@ -1,0 +1,189 @@
+.chat{
+  // Box
+  // Border
+  // Background
+  // Text
+  // Other
+
+  // BASE RULES
+  $border-color: #ccc;
+  $bg-color: #fff;
+  $text-color: #333;
+  $corner-radius: 12px;
+  $border-thickness: 2px;
+
+  $bub-width: 450px; /*width of the speech bubble*/
+  // $bub-height: 80px; /*height of the speech bubble*/
+  $bub-tri-size: 12px; /*size of the speech bubble triangle*/
+  $bub-tri-size-inner: ($bub-tri-size - $border-thickness);
+  $bub-tri-offset: 8px;
+
+  %curved-corners{
+    -webkit-border-radius: $corner-radius;
+    -moz-border-radius: $corner-radius;
+    -ms-border-radius: $corner-radius;
+    -o-border-radius: $corner-radius;
+    border-radius: $corner-radius;
+  }
+
+  //avatar image
+  %avatar-image{
+    width: 80px;
+    height: 80px;
+    border:$border-thickness solid $border-color;
+    @extend %curved-corners;
+    background: url("../components/chat/img/anon.jpg") no-repeat;
+  }
+
+  //speech bubble
+  %speech-bubble{
+    position:relative;
+    min-height:44px;
+    padding: 4px 8px 8px 8px;
+    border:$border-thickness solid $border-color;
+    @extend %curved-corners;
+    background:$bg-color; /*same as the container background*/
+  }
+
+  //speech bubble triangle outer
+  %speech-bubble-before{
+    display:block;
+    position:absolute;
+    border-style:solid;
+    content:"";
+  }
+
+  //speech bubble triangle inner
+  %speech-bubble-after {
+    display:block;
+    position:absolute;
+    border-style:solid;
+    content:"";
+  }
+
+  // LAYOUT RULES
+  width:640px;
+  margin: 0 auto;
+
+  //unordered list of avatars
+  ul.avatars{
+    list-style: none;
+    padding: 0;
+  }
+
+  // MODULE RULES
+
+  //displays the gravatar of a chat participant with their
+  //latest message in a speech bubble
+  ul.avatars li
+  {
+    margin: 0 0 15px 0;
+    padding: 0;
+  }
+
+  .avatar-image-left{
+    @extend %avatar-image;
+    float:left;
+    margin-right:$bub-tri-size + 1;
+  }
+
+  .avatar-image-right{
+    @extend %avatar-image;
+    float:right;
+    margin-left:$bub-tri-size + 1;
+  }
+
+  .speech-bubble-left{
+    @extend %speech-bubble;
+    float:left;
+    margin:0 0 0 $bub-tri-size;
+    &:before {
+      @extend %speech-bubble-before;
+      left:-$bub-tri-size;
+      top:$bub-tri-offset;
+      border-width:$bub-tri-size $bub-tri-size $bub-tri-size 0; /*size of the triangle*/
+      border-color: transparent $border-color;
+    }
+    &:after {
+      @extend %speech-bubble-after;
+      left:-($bub-tri-size-inner - 1);
+      top:$bub-tri-offset + $border-thickness;
+      border-width:$bub-tri-size-inner $bub-tri-size-inner $bub-tri-size-inner 0;
+      border-color: transparent $bg-color;
+    }
+  }
+
+  .speech-bubble-right{
+    @extend %speech-bubble;
+    float:right;
+    margin:0 $bub-tri-size 0 0;
+    &:before {
+      @extend %speech-bubble-before;
+      right:-$bub-tri-size;
+      top:$bub-tri-offset;
+      border-width:$bub-tri-size 0 $bub-tri-size $bub-tri-size; /*size of the triangle*/
+      border-color: transparent $border-color;
+    }
+    &:after {
+      @extend %speech-bubble-after;
+      right:-($bub-tri-size-inner - 1);
+      top:$bub-tri-offset + $border-thickness;
+      border-width:$bub-tri-size-inner 0 $bub-tri-size-inner $bub-tri-size-inner;
+      border-color: transparent $bg-color;
+    }
+  }
+
+  //unused
+  .speech-bubble-bottom{
+    @extend %speech-bubble;
+    margin:0 0 $bub-tri-size 0;
+    &:before {
+      @extend %speech-bubble-before;
+      bottom:-$bub-tri-size; /* -(border-top-width) - (border-bottom-width)*/
+      left:$bub-tri-offset; /*horiz position of the triangle along bottom of bubble*/
+      border-width:$bub-tri-size $bub-tri-size 0 $bub-tri-size; /*size of the triangle*/
+      border-color: $border-color transparent; /*colour should be the same as bubble border set above*/
+    }
+    &:after {
+      @extend %speech-bubble-after;
+      bottom:-($bub-tri-size-inner - 1); /* -(border-top-width - border-bottom-width) */
+      left:$bub-tri-offset + $border-thickness;
+      border-width:$bub-tri-size-inner $bub-tri-size-inner 0 $bub-tri-size-inner;
+      border-color: $bg-color transparent;
+    }
+  }
+
+  .speech-bubble-content{
+    // background: #ffcc00;
+    max-width:$bub-width - 20px; /*(width - 2x padding-left/right of parent)*/
+    // max-height: $bub-height - 12px; /*(height - 2x padding-top/bottom of parent)*/
+    color:$text-color;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+
+  //area for reading all messages in vertical scroll
+  .read-section{
+    width: 500px;
+    height: 200px;
+    padding:15px;
+    @extend %curved-corners;
+    border: $border-thickness solid $border-color;
+    overflow-y: scroll;
+  }
+
+  //area for writing messages
+  input.write-section{
+    width:500px;
+    height:80px;
+    border: $border-thickness solid $border-color;
+  }
+
+  //buttons for writing
+  .write-control-section{
+  }
+
+  // STATE RULES
+
+}
