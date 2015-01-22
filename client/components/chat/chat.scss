@@ -2,9 +2,10 @@
 
   // variables
   $border-color: #ccc;
+  $li-border-color: #ddd;
   $bg-color: #fff;
   $text-color: #333;
-  $corner-radius: 12px;
+  $corner-radius: 6px;
   $border-thickness: 2px;
 
   $bub-width: 300px; /*width of the speech bubble*/
@@ -61,19 +62,21 @@
   width:960px;
   height: 100%;
   margin: 0 auto;
-  padding: 20px;
-  background: #eee;
+  padding: 10px;
+  background: #ddd;
   @extend %curved-corners;
 
   // LAYOUT
   .column{
-    width: 450px;
+    width: 465px;
     height: 100%;
     float: left;
-    background: #ddd;
+    padding:15px;
+    background: #eee;
   }
   .column.right{
-    margin-left:20px;
+    margin-left:10px;
+    padding:0px;
   }
 
   // MODULE
@@ -87,6 +90,7 @@
   //unordered list of avatars
   ul.avatars{
     list-style: none;
+    margin:0;
     padding: 0;
   }
 
@@ -183,21 +187,31 @@
   //area for reading all messages in vertical scroll
   .read-section{
     width: 100%;
-    height: 200px;
+    height: 45%;
     padding:15px;
-    border: $border-thickness solid $border-color;
-    overflow-y: scroll;
+    border-top: 10px solid $li-border-color;
+    overflow-y: auto;
   }
 
   //area for writing messages
-  input.write-section{
+  .write-section{
     width:100%;
-    height:200px;
-    border: $border-thickness solid $border-color;
+    height:45%;
+    padding:10px;
+  }
+
+  .write-section textarea{
+    width:100%;
+    height:100%;
+    margin: 0;
+    padding: 10px;
   }
 
   //buttons for writing
   .write-control-section{
+    width:100%;
+    height:10%;
+    padding: 10px;
   }
 
   // STATE RULES
