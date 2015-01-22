@@ -1,23 +1,19 @@
 .chat{
-  // Box
-  // Border
-  // Background
-  // Text
-  // Other
 
-  // BASE RULES
+  // variables
   $border-color: #ccc;
   $bg-color: #fff;
   $text-color: #333;
   $corner-radius: 12px;
   $border-thickness: 2px;
 
-  $bub-width: 450px; /*width of the speech bubble*/
+  $bub-width: 300px; /*width of the speech bubble*/
   // $bub-height: 80px; /*height of the speech bubble*/
   $bub-tri-size: 12px; /*size of the speech bubble triangle*/
   $bub-tri-size-inner: ($bub-tri-size - $border-thickness);
   $bub-tri-offset: 8px;
 
+  // component mixins
   %curved-corners{
     -webkit-border-radius: $corner-radius;
     -moz-border-radius: $corner-radius;
@@ -61,17 +57,38 @@
     content:"";
   }
 
-  // LAYOUT RULES
-  width:640px;
+  // BASE
+  width:960px;
+  height: 100%;
   margin: 0 auto;
+  padding: 20px;
+  background: #eee;
+  @extend %curved-corners;
+
+  // LAYOUT
+  .column{
+    width: 450px;
+    height: 100%;
+    float: left;
+    background: #ddd;
+  }
+  .column.right{
+    margin-left:20px;
+  }
+
+  // MODULE
+  // Order of module CSS properties:
+  // Box
+  // Border
+  // Background
+  // Text
+  // Other
 
   //unordered list of avatars
   ul.avatars{
     list-style: none;
     padding: 0;
   }
-
-  // MODULE RULES
 
   //displays the gravatar of a chat participant with their
   //latest message in a speech bubble
@@ -165,18 +182,17 @@
 
   //area for reading all messages in vertical scroll
   .read-section{
-    width: 500px;
+    width: 100%;
     height: 200px;
     padding:15px;
-    @extend %curved-corners;
     border: $border-thickness solid $border-color;
     overflow-y: scroll;
   }
 
   //area for writing messages
   input.write-section{
-    width:500px;
-    height:80px;
+    width:100%;
+    height:200px;
     border: $border-thickness solid $border-color;
   }
 
