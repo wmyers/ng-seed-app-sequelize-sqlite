@@ -11,7 +11,9 @@ var express = require('express');
 var config = require('./config/environment');
 var app = express();
 var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 require('./config/express')(app);
+require('./config/socketio')(io);
 require('./routes')(app);
 
 /**

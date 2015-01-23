@@ -16,6 +16,6 @@ angular.module('dashMdul')
   function (
     $scope
   ) {
-
+    
 
     }]);
