@@ -10,32 +10,53 @@ angular.module('dashMdul')
   });
 })
 //modal demo ctrl
-.controller('chatCtrl',
+.factory('chatSocket',
 [
-  '$scope',
-  function ($scope) {
+  '$location',
+  'socketFactory', function ($location, socketFactory) {
 
-    // //get room id from url - chat1 etc
-    // var roomId = Number($location.path.match(/\/chat\/(\d+)$/)[1]);
-    //
-    // //socket listeners/emitters
-    // socket.on('connect', function(){
-    //   //emit roomId join event
-    //   socket.emit('joinRoom', roomId);
-    // });
-    //
-    // //gravatar url
-    // socket.on('avatarUrl', function(data){
-    //   var avatarUrl = data;
-    // });
+    //get room id from url - chat1 etc
+    var roomId = Number($location.path.match(/\/room\/(\d+)$/)[1]);
 
-    //TODO Submit the form on enter
-    // textarea.keypress(function(e){
-    //   if(e.which == 13) {
-    //     e.preventDefault();
-    //     chatForm.trigger('submit');
-    //   }
-    // });
+    //generate a socket
+    var socket = socketFactory();
+
+    var avatarUrl;
+
+    socket.addListener('connect', function(){
+      socket.emit('joinRoom', roomId);
+    });
+
+    //gravatar url
+    socket.addListener('avatarUrl', function(data){
+      avatarUrl = data;
+    });
+
+    return {
+            socket:socket,
+            roomId:roomId,
+            avatarUrl:avatarUrl
+          };
+}])
+.controller('chatCtrl', ['$scope', 'chatSocket', function($scope, chatSocket){
+
+    //Message input form submit
+    $scope.submitMessage = function(){
+      submitMessage();
+    };
+
+    var submitMessage = function(){
+      chatSocket.socket.emit('message',
+                            {
+                              msg: $scope.chatinputtext,
+                              avatarUrl:chatSocket.avatarUrl
+                            }
+      ).then();
+    };
+
+
+}]);
+
 
     // chatForm.on('submit', function(e){
     //   e.preventDefault();
@@ -57,5 +78,3 @@ angular.module('dashMdul')
     //   });
     //
     // },60000);
-
-}]);

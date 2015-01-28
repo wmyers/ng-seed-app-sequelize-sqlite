@@ -5,9 +5,9 @@
 //wraps listener callbacks in $q.when() resolved promises
 
 angular.module('socketMdul', []).
-factory('socketSrvc', ['io', '$q', function (io, $q) {
+factory('socketFactory', ['io', '$q', function (io, $q) {
 
-  return function socketFactory(){
+  return function (){
 
     //create socket with connection to bigmouth namespace
     var socket = io.connect('/bigmouth');
@@ -43,6 +43,7 @@ factory('socketSrvc', ['io', '$q', function (io, $q) {
     };
 
     //removeListener wrapper
+    //TODO check this is right
     var removeListener = function (event, callback) {
       return socket.removeListener.apply(socket, event, promisify(socket, callback));
     };

@@ -17,9 +17,8 @@
           .speech-bubble-content Ok sure why not
         .clearfix
   .column.right
-    .write-section
-      textarea
-    .write-control-section
-      .dash-button Send
+    form.write-section(ng-submit="submitMessage()" id="chatinput")
+      textarea(form="chatinput" ng-model="chatinputtext")
+      input(type="submit" value="Send")
     .read-section  
   .clearfix
