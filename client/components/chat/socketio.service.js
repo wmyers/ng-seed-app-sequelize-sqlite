@@ -5,12 +5,15 @@
 //wraps listener callbacks in $q.when() resolved promises
 
 angular.module('socketMdul', []).
-factory('socketFactory', ['io', '$q', function (io, $q) {
+factory('socketFactory', ['$window', '$q', function ($window, $q) {
 
-  return function (){
+  return function socketFactory(){
+    //get a reference to the io global on the window object
+    var io = $window.io;
 
     //create socket with connection to bigmouth namespace
-    var socket = io.connect('/bigmouth');
+    // var socket = io.connect('/bigmouth');
+    var socket = io.connect();
 
     //promisify socket 'on' callbacks
     var promisify = function (socket, callback) {
@@ -74,6 +77,8 @@ factory('socketFactory', ['io', '$q', function (io, $q) {
       disconnect: disconnect,
       connect: connect
     };
+
+    return wrappedSocket;
 
   };
 

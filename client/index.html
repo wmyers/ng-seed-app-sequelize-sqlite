@@ -44,8 +44,9 @@
       ga('send', 'pageview');
     </script>-->
 
-    <!-- hard-coded scriptjs for now - does not seem to be bower-compatible -->
+    <!-- hard-coded for now - does not seem to be bower-compatible -->
     <script src="bower_components/scriptjs/dist/script.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -76,6 +77,7 @@
           <script src="app/auth/signup.controller.js"></script>
           <script src="app/dash/dash.controller.js"></script>
           <script src="app/auth/auth.service.js"></script>
+          <script src="components/chat/socketio.service.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/responsive-table/responsive-table.service.js"></script>
           <script src="app/modal-dialog/modal-dialog.directive.js"></script>

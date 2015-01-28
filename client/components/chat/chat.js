@@ -16,25 +16,28 @@ angular.module('dashMdul')
   'socketFactory', function ($location, socketFactory) {
 
     //get room id from url - chat1 etc
-    var roomId = Number($location.path.match(/\/room\/(\d+)$/)[1]);
+    var getRoomId = function(){
+      // return Number($location.path.match(/\/room\/(\d+)$/)[1]);
+      return 'room1';
+    };
 
     //generate a socket
     var socket = socketFactory();
 
-    var avatarUrl;
-
+    //request to join room
     socket.addListener('connect', function(){
-      socket.emit('joinRoom', roomId);
+      //socket.emit('joinRoom', getRoomId());
     });
 
-    //gravatar url
+    //receive gravatar url
+    var avatarUrl;
     socket.addListener('avatarUrl', function(data){
       avatarUrl = data;
     });
 
     return {
             socket:socket,
-            roomId:roomId,
+            getRoomId:getRoomId,
             avatarUrl:avatarUrl
           };
 }])
@@ -42,16 +45,11 @@ angular.module('dashMdul')
 
     //Message input form submit
     $scope.submitMessage = function(){
-      submitMessage();
-    };
-
-    var submitMessage = function(){
       chatSocket.socket.emit('message',
-                            {
-                              msg: $scope.chatinputtext,
-                              avatarUrl:chatSocket.avatarUrl
-                            }
-      ).then();
+      {
+        msg: $scope.chatinputtext,
+        avatarUrl:chatSocket.avatarUrl
+      });
     };
 
 

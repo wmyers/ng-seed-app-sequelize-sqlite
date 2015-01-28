@@ -1,5 +1,5 @@
 {
-  "name": "grouphunt-red",
+  "name": "simple-spa",
   "version": "0.0.0",
   "dependencies": {
     "angular": ">=1.2.*",
@@ -12,7 +12,8 @@
     "font-awesome": ">=4.1.0",
     "lodash": "~2.4.1",
     "angular-ui-router": "~0.2.10",
-    "scriptjs": ">=2.5.3"
+    "scriptjs": ">=2.5.3",
+    "socket.io": "latest"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

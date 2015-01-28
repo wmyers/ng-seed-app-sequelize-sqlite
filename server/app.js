@@ -15,6 +15,7 @@ var io = require('socket.io')(server);
 require('./config/express')(app);
 require('./config/socketio')(io);
 require('./routes')(app);
+require('./socketio')(io);
 
 /**
 * Sequelize - check db connect (auto-create for SQLite if necessary), then start the server

@@ -8,22 +8,23 @@ module.exports = function(io){
 
 
   //auto create bigmouth namespace
-  var bigmouth = io.of('/bigmouth').on('connection', function (socket) {
+  // var bigmouth = io.of('/bigmouth').on('connection', function (socket) {
+  // var chat = io.on('connection', function (socket) {
 
     //helper
-    var getRoomClients = function(roomId) {
-      return Object.keys(io.nsps['/bigmouth'].adapter.rooms[roomId]);
-    }
+    // var getRoomClients = function(roomId) {
+    //   return Object.keys(io.nsps['/bigmouth'].adapter.rooms[roomId]);
+    // }
 
-    socket.on('joinRoomRequest',function(data){
-      var username = data.user;
-      var roomId = data.roomId;
+    // socket.on('joinRoom',function(data){
+      // var username = data.user;
+      // var roomId = data.roomId;
 
       // var avatarUrl = gravatar.url(data.avatar, {s: '140', r: 'x', d: 'mm'});
       // socket.emit('img', socket.avatar);
 
-      socket.join(roomId);
-    });
+      // socket.join(roomId);
+    // });
 
       // var usernames = [],
       // avatars = [];
@@ -39,22 +40,22 @@ module.exports = function(io){
       // });
 
 
-    socket.on('disconnect', function() {
+    // socket.on('disconnect', function() {
+    //
+    //   socket.broadcast.to(socket.room).emit('leave', {
+    //     boolean: true,
+    //     room: this.room,
+    //     user: this.username,
+    //     avatar: this.avatar
+    //   });
+    //
+    //   socket.leave(socket.room);
+    // });
 
-      socket.broadcast.to(socket.room).emit('leave', {
-        boolean: true,
-        room: this.room,
-        user: this.username,
-        avatar: this.avatar
-      });
 
-      socket.leave(socket.room);
-    });
-
-
-    socket.on('msg', function(data){
-
-      socket.broadcast.to(socket.room).emit('receive', {msg: data.msg, user: data.user, img: data.img});
-    });
-  });
+    // socket.on('msg', function(data){
+    //
+    //   socket.broadcast.to(socket.room).emit('receive', {msg: data.msg, user: data.user, img: data.img});
+    // });
+  // });
 };
