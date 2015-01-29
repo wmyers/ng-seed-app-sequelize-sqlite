@@ -1,24 +1,15 @@
+{{chatSrvc.userName}} in {{chatSrvc.roomId}}
 .chat
   .column
     ul.avatars
-      li
-        .avatar-image-left
+      li(ng-repeat="message in chatSrvc.messages track by $index")
+        .avatar-image-left {{message.userName}}
         .speech-bubble-left 
-          .speech-bubble-content Hi this is some chat right here right now blah blah blah blah blah blah blah blah blah 
-        .clearfix
-      li
-        .avatar-image-right
-        .speech-bubble-right 
-          .speech-bubble-content Hi this is some chat right here right now blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah. blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
-        .clearfix
-      li
-        .avatar-image-right
-        .speech-bubble-right 
-          .speech-bubble-content Ok sure why not
+          .speech-bubble-content {{message.msg}}
         .clearfix
   .column.right
-    form.write-section(ng-submit="submitMessage()" id="chatinput")
+    form.write-section(id="chatinput")
       textarea(form="chatinput" ng-model="chatinputtext")
-      input(type="submit" value="Send")
+      input(type="submit" value="Send" ng-click="submitMessage()")
     .read-section  
   .clearfix

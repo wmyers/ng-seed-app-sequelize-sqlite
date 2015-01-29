@@ -1,30 +1,27 @@
 module.exports = function(io){
-  // io.sockets.on('connection', function (socket) {
-  //   socket.emit('message', { message: 'welcome to the chat' });
-  //   socket.on('send', function (data) {
-  //     io.sockets.emit('message', data);
-  //   });
-  // });
-
 
   //auto create bigmouth namespace
-  // var bigmouth = io.of('/bigmouth').on('connection', function (socket) {
-  // var chat = io.on('connection', function (socket) {
+  var bigmouth = io.of('/bigmouth').on('connection', function (socket) {
 
     //helper
-    // var getRoomClients = function(roomId) {
-    //   return Object.keys(io.nsps['/bigmouth'].adapter.rooms[roomId]);
-    // }
+    var getRoomClients = function(roomId) {
+      return Object.keys(io.nsps['/bigmouth'].adapter.rooms[roomId]);
+    }
 
-    // socket.on('joinRoom',function(data){
-      // var username = data.user;
-      // var roomId = data.roomId;
+    socket.on('joinRoom',function(data){
+
+      console.log('$%$%$%$%$%$', data.userName, 'joined', data.roomId);
 
       // var avatarUrl = gravatar.url(data.avatar, {s: '140', r: 'x', d: 'mm'});
       // socket.emit('img', socket.avatar);
 
-      // socket.join(roomId);
-    // });
+      socket.join(data.roomId);
+    });
+
+    socket.on('sendMessage', function(data){
+      console.log('$%$%$%$%$%$', data.userName, 'in', data.roomId, 'sent this message:', data.msg);
+      bigmouth.to(data.roomId).emit('receiveMessage', {msg: data.msg, userName: data.userName});
+    });
 
       // var usernames = [],
       // avatars = [];
@@ -53,9 +50,6 @@ module.exports = function(io){
     // });
 
 
-    // socket.on('msg', function(data){
-    //
-    //   socket.broadcast.to(socket.room).emit('receive', {msg: data.msg, user: data.user, img: data.img});
-    // });
-  // });
+
+  });
 };

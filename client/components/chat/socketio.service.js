@@ -2,7 +2,6 @@
 
 //simplified version of btford angular-socket-io
 //does not forward/broadcast socket events into the rootscope
-//wraps listener callbacks in $q.when() resolved promises
 
 angular.module('socketMdul', []).
 factory('socketFactory', ['$window', '$q', function ($window, $q) {
@@ -11,44 +10,30 @@ factory('socketFactory', ['$window', '$q', function ($window, $q) {
     //get a reference to the io global on the window object
     var io = $window.io;
 
-    //create socket with connection to bigmouth namespace
-    // var socket = io.connect('/bigmouth');
-    var socket = io.connect();
+    var socketurl = 'http://localhost:9000/bigmouth';
 
-    //promisify socket 'on' callbacks
-    var promisify = function (socket, callback) {
-      if(callback){
-        var args = arguments;
-        return $q.when(callback.apply(socket, args));
-      }
-      return angular.noop;
-    };
+    //create socket with connection to bigmouth namespace
+    var socket = io.connect(socketurl);
 
     //addListener/on wrapper
     var addListener = function (eventName, callback) {
-      socket.on(eventName, promisify(socket, callback));
+      socket.on(eventName, callback);
     };
 
     //addOnceListener/once wrapper
     var addOnceListener = function (eventName, callback) {
-      socket.once(eventName, promisify(socket, callback));
+      socket.once(eventName, callback);
     };
 
     //emit wrapper
     var emit = function (eventName, data, callback) {
-      var lastIndex = arguments.length - 1;
-      var cb = arguments[lastIndex];
-      if(typeof cb === 'function') {
-        cb = promisify(socket, cb);
-        arguments[lastIndex] = cb;
-      }
+      console.log('emitting from socketio.service', arguments);
       return socket.emit.apply(socket, arguments);
     };
 
     //removeListener wrapper
-    //TODO check this is right
     var removeListener = function (event, callback) {
-      return socket.removeListener.apply(socket, event, promisify(socket, callback));
+      return socket.removeListener.apply(socket, event, callback);
     };
 
     //removeAllListeners wrapper
@@ -63,7 +48,7 @@ factory('socketFactory', ['$window', '$q', function ($window, $q) {
 
     //connect wrapper
     var connect = function() {
-      return socket.connect('/bigmouth');
+      return socket.connect(socketurl);
     };
 
     //wrapped socket

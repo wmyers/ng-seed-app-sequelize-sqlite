@@ -9,50 +9,82 @@ angular.module('dashMdul')
     controller: 'chatCtrl'
   });
 })
-//modal demo ctrl
-.factory('chatSocket',
+.factory('chatSrvc',
 [
   '$location',
-  'socketFactory', function ($location, socketFactory) {
+  'socketFactory',
+  function ($location, socketFactory) {
 
-    //get room id from url - chat1 etc
+    //TODO - check this regexp : get room id from url
     var getRoomId = function(){
-      // return Number($location.path.match(/\/room\/(\d+)$/)[1]);
-      return 'room1';
+      return Number($location.path.match(/\/room\/(\d+)$/)[1]);
     };
 
     //generate a socket
     var socket = socketFactory();
 
+    var roomId = 'room1';
+    var userName = 'will';
+
     //request to join room
-    socket.addListener('connect', function(){
-      //socket.emit('joinRoom', getRoomId());
+    socket.on('connect', function(){
+      console.log('joinRoom:', roomId);
+      socket.emit('joinRoom', {userName:userName, roomId:roomId});
+    });
+
+    //receive messages
+    socket.on('receiveMessage', function(data){
+      console.log('received chat data:', data);
+      self.messages.push(data);
+    });
+
+    //connection error handling
+    socket.on('connect_error', function(e) {
+      console.log('&*&*&*&*&*&* socket.io connection error detected in client');
+      socket.removeAllListeners();
+      socket.disconnect();
     });
 
     //receive gravatar url
     var avatarUrl;
-    socket.addListener('avatarUrl', function(data){
+    socket.on('avatarUrl', function(data){
       avatarUrl = data;
     });
 
-    return {
+    var self = {
             socket:socket,
-            getRoomId:getRoomId,
-            avatarUrl:avatarUrl
+            roomId:roomId,
+            userName:userName,
+            messages:[]
           };
+
+    return self;
 }])
-.controller('chatCtrl', ['$scope', 'chatSocket', function($scope, chatSocket){
+.controller('chatCtrl',
+[
+  '$scope',
+  'chatSrvc',
+  function($scope, chatSrvc){
+
+    //expose chatSrvc to the view scope
+    $scope.chatSrvc = chatSrvc;
 
     //Message input form submit
     $scope.submitMessage = function(){
-      chatSocket.socket.emit('message',
+      console.log('submitting message:', $scope.chatinputtext);
+      chatSrvc.socket.emit('sendMessage',
       {
-        msg: $scope.chatinputtext,
-        avatarUrl:chatSocket.avatarUrl
+        userName:chatSrvc.userName,
+        roomId:chatSrvc.roomId,
+        msg: $scope.chatinputtext
       });
+      //clear input text
+      $scope.chatinputtext = '';
     };
 
-
+    $scope.$on('$destroy', function (event) {
+      chatSrvc.socket.removeAllListeners();
+    });
 }]);
 
 
