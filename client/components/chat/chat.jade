@@ -1,8 +1,8 @@
-{{chatSrvc.userName}} in {{chatSrvc.roomId}}
+{{chatData.userName}} in {{chatData.roomId}}
 .chat
   .column
     ul.avatars
-      li(ng-repeat="message in chatSrvc.messages track by $index")
+      li(ng-repeat="message in chatData.messages track by $index")
         .avatar-image-left {{message.userName}}
         .speech-bubble-left 
           .speech-bubble-content {{message.msg}}

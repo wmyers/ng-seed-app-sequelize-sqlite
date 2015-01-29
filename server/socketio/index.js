@@ -10,7 +10,7 @@ module.exports = function(io){
 
     socket.on('joinRoom',function(data){
 
-      console.log('$%$%$%$%$%$', data.userName, 'joined', data.roomId);
+      // console.log('$%$%$%$%$%$', data.userName, 'joined', data.roomId);
 
       // var avatarUrl = gravatar.url(data.avatar, {s: '140', r: 'x', d: 'mm'});
       // socket.emit('img', socket.avatar);
@@ -19,7 +19,7 @@ module.exports = function(io){
     });
 
     socket.on('sendMessage', function(data){
-      console.log('$%$%$%$%$%$', data.userName, 'in', data.roomId, 'sent this message:', data.msg);
+      // console.log('$%$%$%$%$%$', data.userName, 'in', data.roomId, 'sent this message:', data.msg);
       bigmouth.to(data.roomId).emit('receiveMessage', {msg: data.msg, userName: data.userName});
     });
 
