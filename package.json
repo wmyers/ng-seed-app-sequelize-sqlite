@@ -22,14 +22,14 @@
     "moment": "^2.8.3",
     "morgan": "~1.0.0",
     "pg": "^3.6.2",
+    "query-string": "~1.0.0",
     "sequelize": "^2.0.0-rc6",
     "sequelize-cli": "^1.0.2",
     "serve-favicon": "~2.0.1",
     "sqlite3": "^3.0.4",
     "socket.io": "latest",
     "underscore": "~1.6.0",
-    "validator": "~3.27.0",
-    "when": "~3.6.4"
+    "validator": "~3.27.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
