@@ -1,18 +1,20 @@
 form.user-form(name="gravatarForm")
   h2 Choose your gravatar
   label(for='email') Email
-  input.form-control(type='email' name='email' ng-model='formData.email')
+  input.form-control(type='email' name='email' ng-model='formData.email' placeholder='Please input your gravatar email')
   .spacer
-  label(for='size') Image size (min: 1px max: 2048px)
+  label(for='size') Image Size (min: 1px max: 2048px)
   input.form-control(type='number' min='1' max='2048' name='size' ng-model='formData.size')
   .spacer
-  label(for='defaultImage') Default Image
+  label(for='defaultImage') Default Image &nbsp;
   select(name='defaultImage' ng-model='formData.defaultImage' ng-options='image as image.name for image in props.defaultImages')
   .spacer
-  label(for='rating') Image Rating
+  label(for='rating') Image Rating &nbsp;
   select(name='rating' ng-model='formData.rating' ng-options='rating as rating.name for rating in props.ratings')
   .spacer
-  input(type="submit" value="Submit" ng-click="setAvatarUrl(formData)")
-    
-p#avatar-preview
-  img(src='props.avatarUrl')
+  input(type='submit' value='Submit' ng-click='setAvatarUrl()' ng-disabled='gravatarForm.$invalid || formData.email.length === 0')
+   
+p.avatar-preview Avatar URL: {{props.avatarUrl}} 
+p.avatar-preview
+  img(src='{{props.avatarUrl}}')
+  

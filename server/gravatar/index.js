@@ -16,7 +16,7 @@ module.exports = {
         var avatarUrl = baseUrl + crypto.createHash('md5').update(email.toLowerCase().trim()).digest('hex') + result;
         resolve(avatarUrl);
       }else{
-        reject("Invalid arguments, unable to generate gravatar urls.");
+        reject("Invalid email, unable to generate gravatar url.");
       }
     })
   }

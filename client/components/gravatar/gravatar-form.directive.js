@@ -25,16 +25,27 @@ angular.module('gravatarMdul')
                         ]
         };
 
-        scope.setAvatarUrl = function(formData){
+        //default values
+        scope.formData = {
+          size: 80,
+          defaultImage:scope.props.defaultImages[0],
+          rating:scope.props.ratings[0],
+          email:''
+        };
+
+        scope.setAvatarUrl = function(){
+          var formData = scope.formData;
           var props = {
             s: formData.size,
-            d: formData.defaultImage,
-            r: formData.rating
+            d: formData.defaultImage.value,
+            r: formData.rating.value
           };
-          scope.service.getImageUrl(formData.email, props).then(function(url){
-            scope.props.avatarUrl = url;
-            scope.$digest();
-          });
+          if(formData.email){
+            scope.service.getImageUrl(formData.email, props).then(function(url){
+              scope.props.avatarUrl = url;
+              scope.$evalAsync();
+            });
+          }
         };
       },
       templateUrl: './components/gravatar/gravatar-form.html'

@@ -30,6 +30,7 @@
     border:$border-thickness solid $border-color;
     @extend %curved-corners;
     background: url("../components/chat/img/anon.jpg") no-repeat;
+    background-size: 80px 80px;
   }
 
   //speech bubble

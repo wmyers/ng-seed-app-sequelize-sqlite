@@ -5,9 +5,13 @@ var gravatar = require('../../gravatar');
 
 var router = express.Router();
 
-router.get('/avatar', function (req, res) {
-  return gravatar.getImageUrl(
-    req.email, req.params
+router.post('/avatar', function (req, res) {
+  //email is mandatory, params are optional
+  if (!req.body.email) {
+    return res.status(400).send('Invalid email.');
+  }
+  return gravatar.getAvatarUrl(
+    req.body.email, req.body.params
   ).then(function(hash) {
     return res.send(hash);
   })

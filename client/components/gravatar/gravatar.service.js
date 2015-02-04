@@ -32,7 +32,7 @@ factory('gravatarSrvc', [
           return $q.when(baseAvatarUrl);
         }else{
           //request a gravatar url with just hashed email
-          return $http.get('/api/gravatar/avatar').then(function (result) {
+          return $http.post('/api/gravatar/avatar', {email:email}).then(function (result) {
             baseAvatarUrl = result.data;
             self.avatarUrls[email] = baseAvatarUrl;
             return $q.when(baseAvatarUrl);
