@@ -5,7 +5,6 @@ var gravatar = require('../../gravatar');
 
 var router = express.Router();
 
-// Retrieves own user information.
 router.get('/avatar', function (req, res) {
   return gravatar.getImageUrl(
     req.email, req.params
