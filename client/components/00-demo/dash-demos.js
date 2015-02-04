@@ -20,8 +20,11 @@ angular.module('dashMdul')
     })
     .state('dashboard.responsiveTabsDemo', {
       url: '/responsive-tabs-demo',
-      templateUrl: './components/00-demo/responsive-tabs-demo.html',
-      controller: 'responsiveTabsDemoCtrl'
+      templateUrl: './components/00-demo/responsive-tabs-demo.html'
+    })
+    .state('dashboard.gravatarFormDemo', {
+      url: '/gravatar-form-demo',
+      templateUrl: './components/00-demo/gravatar-form-demo.html'
     });
 })
 //modal demo ctrl
@@ -137,14 +140,4 @@ angular.module('dashMdul')
           ]
         ];
 
-}])
-//responsiveTabs demo ctrl
-.controller('responsiveTabsDemoCtrl',
-              [
-                '$scope',
-                  function (
-                    $scope
-                  ) {
-
-}])
-;
+}]);

@@ -9,7 +9,8 @@ angular.module('dashMdul')
           {route:'dashboard.accordionDemo', title:'Accordion Demo'},
           {route:'dashboard.responsiveTableDemo', title:'Responsive Table Demo'},
           {route:'dashboard.responsiveTabsDemo', title:'Responsive Tabs Demo'},
-          {route:'dashboard.chat', title:'Chat'}
+          {route:'dashboard.chat', title:'Chat'},
+          {route:'dashboard.gravatarFormDemo', title:'Gravatar Form Demo'}
         ],
     showSideBarAtStart:false,
     brand:'Component Demos'
