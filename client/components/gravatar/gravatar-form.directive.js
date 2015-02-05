@@ -4,7 +4,11 @@ angular.module('gravatarMdul')
 .directive('gravatarForm', ['$q', function($q) {
   return {
       restrict: 'E',
-      scope: {},
+      scope: {
+        isShowSettings:'@?',
+        isShowPreviewUrl:'@?',
+        isShowPreview:'@?'
+      },
       controller: function($scope, gravatarSrvc){
         $scope.service = gravatarSrvc;
       },
@@ -26,6 +30,13 @@ angular.module('gravatarMdul')
         };
 
         //default values
+        var boolify = function(str){
+          return str === 'true' ? true : false;
+        };
+        scope.props.isShowSettings = scope.isShowSettings !== undefined ? boolify(scope.isShowSettings) : false;
+        scope.props.isShowPreview = scope.isShowPreview !== undefined ? boolify(scope.isShowPreview) : true;
+        scope.props.isShowPreviewUrl = scope.isShowPreviewUrl !== undefined ? boolify(scope.isShowPreviewUrl) : false;
+
         scope.formData = {
           size: 80,
           defaultImage:scope.props.defaultImages[0],
