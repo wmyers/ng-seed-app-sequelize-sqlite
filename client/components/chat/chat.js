@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dashMdul')
+angular.module('chatMdul')
 .config(function($stateProvider){
   $stateProvider
   .state('dashboard.chat', {
@@ -9,6 +9,13 @@ angular.module('dashMdul')
     controller: 'chatCtrl'
   });
 })
+.run(['$rootScope', '$state', function($rootScope, $state) {
+  $rootScope.$on('$stateChangeError', function(ev, toS, toPs, fromS, fromPs, error) {
+    // if (error.chatUserReady === false) {
+    //   $state.go('dashboard.chatLogin');
+    // }
+  });
+}])
 .factory('chatSrvc',
 [
   '$location',

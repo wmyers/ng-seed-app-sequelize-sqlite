@@ -51,7 +51,7 @@ angular.module('simpleSpaApp', [
   'authMdul',
   'dashMdul',
   'uiComps',
-  'socketMdul',
+  'chatMdul',
   'gravatarMdul'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {

@@ -5,9 +5,10 @@ angular.module('gravatarMdul')
   return {
       restrict: 'E',
       scope: {
-        isShowSettings:'@?',
-        isShowPreviewUrl:'@?',
-        isShowPreview:'@?'
+        isShowSettings:'=?',
+        isShowPreviewUrl:'=?',
+        isShowPreview:'=?',
+        formData:'=?'
       },
       controller: function($scope, gravatarSrvc){
         $scope.service = gravatarSrvc;
@@ -33,9 +34,9 @@ angular.module('gravatarMdul')
         var boolify = function(str){
           return str === 'true' ? true : false;
         };
-        scope.props.isShowSettings = scope.isShowSettings !== undefined ? boolify(scope.isShowSettings) : false;
-        scope.props.isShowPreview = scope.isShowPreview !== undefined ? boolify(scope.isShowPreview) : true;
-        scope.props.isShowPreviewUrl = scope.isShowPreviewUrl !== undefined ? boolify(scope.isShowPreviewUrl) : false;
+        scope.isShowSettings = scope.isShowSettings !== undefined ? boolify(scope.isShowSettings) : false;
+        scope.isShowPreview = scope.isShowPreview !== undefined ? boolify(scope.isShowPreview) : true;
+        scope.isShowPreviewUrl = scope.isShowPreviewUrl !== undefined ? boolify(scope.isShowPreviewUrl) : false;
 
         scope.formData = {
           size: 80,

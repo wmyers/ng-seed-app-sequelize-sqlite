@@ -3,7 +3,7 @@
 //simplified version of btford angular-socket-io
 //does not forward/broadcast socket events into the rootscope
 
-angular.module('socketMdul', []).
+angular.module('chatMdul').
 factory('socketFactory', ['$window', '$q', function ($window, $q) {
 
   return function socketFactory(){
