@@ -18,7 +18,6 @@ factory('gravatarSrvc', [
         updateQueryString:updateQueryString
       };
 
-
       function getImageUrl(email, props){
         return self.getBaseAvatarUrl(email).then(function(baseAvatarUrl){
           var avatarUrl = self.updateQueryString(baseAvatarUrl, props);

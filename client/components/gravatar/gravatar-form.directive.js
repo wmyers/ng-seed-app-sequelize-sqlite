@@ -33,6 +33,8 @@ angular.module('gravatarMdul')
           email:''
         };
 
+        //TODO email field validation with $invalid allows an '@' without a '.' - maybe replace with regex
+
         scope.setAvatarUrl = function(){
           var formData = scope.formData;
           var props = {
