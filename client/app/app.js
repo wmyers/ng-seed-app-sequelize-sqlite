@@ -51,7 +51,8 @@ angular.module('simpleSpaApp', [
   'authMdul',
   'dashMdul',
   'uiComps',
-  'socketMdul'
+  'socketMdul',
+  'gravatarMdul'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true);

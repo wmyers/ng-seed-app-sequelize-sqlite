@@ -50,6 +50,7 @@ router.get('/me', auth.required, function (req, res, next) {
     return res.send(user);
   })
   .catch(function(error){
+    console.log('*&*&*&*&*&*&*& get me error')
     return res.status(400).send(error.toString());
   })
 });

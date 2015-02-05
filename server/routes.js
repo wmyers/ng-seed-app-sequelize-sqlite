@@ -11,6 +11,7 @@ module.exports = function(app) {
   //middleware routing
   app.use('/api/auth', require('./api/auth'));
   app.use('/api/user', require('./api/user'));
+  app.use('/api/gravatar', require('./api/gravatar'));
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

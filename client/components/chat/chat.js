@@ -94,9 +94,7 @@ angular.module('dashMdul')
     //attach a listener to the socket to launch an async digest
     chatSrvc.socket.on('receiveMessage', function(){
       console.log('received chat data in controller');
-      //TODO test speed
-      // $scope.$evalAsync();
-      $scope.$digest();
+      $scope.$evalAsync();
     });
 
     $scope.$on('$destroy', function (event) {
