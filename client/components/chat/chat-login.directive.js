@@ -26,7 +26,7 @@ angular.module('chatMdul')
 
         scope.joinChat = function(){
 
-          //apply any synchronus values to chatUserSrvc
+          //apply any synchronous values to chatUserSrvc
           chatUserSrvc.username = scope.formData.username;
           chatUserSrvc.room = scope.formData.room.value;
 
@@ -38,11 +38,16 @@ angular.module('chatMdul')
 
             //TODO check if name already taken
 
-            //go to chat state
             $state.go('dashboard.chat');
+          }).catch(function(error){
+            //if optional
+            if(gfScope.isOptional){
+              $state.go('dashboard.chat');
+            }
           });
-
         };
+
+
       },
       templateUrl: './components/chat/chat-login.html'
     };

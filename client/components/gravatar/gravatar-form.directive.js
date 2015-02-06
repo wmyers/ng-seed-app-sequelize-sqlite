@@ -5,11 +5,10 @@ angular.module('gravatarMdul')
   return {
       restrict: 'E',
       scope: {
-        isOptional:'=?',
         isShowSettings:'=?',
         isShowPreviewUrl:'=?',
         isShowPreview:'=?',
-        formData:'=?'
+        isOptional:'=?'
       },
       controller: function($scope, gravatarSrvc){
         $scope.service = gravatarSrvc;
@@ -47,16 +46,18 @@ angular.module('gravatarMdul')
           avatarUrl:''
         };
 
-        //TODO email field validation with $invalid allows an '@' without a '.' - maybe replace with regex
-
         scope.getAvatarUrl = function(){
           var formData = scope.formData;
-          var props = {
-            s: formData.size,
-            d: formData.defaultImage.value,
-            r: formData.rating.value
-          };
+
+          //TODO regex here or find way to get validity of html content
+          //NB email field validation with ng-required allows an '@' without a '.'
+
           if(formData.email){
+            var props = {
+              s: formData.size,
+              d: formData.defaultImage.value,
+              r: formData.rating.value
+            };
             return scope.service.getImageUrl(formData.email, props).then(function(url){
               return $q.when(url);
             });

@@ -1,9 +1,10 @@
 form.user-form(name="chatLogin")
   h3 Login to a chat room
   label(for='username') User Name
-  input.form-control(type='text' name='username' ng-model='formData.username' required placeholder='Input your chat user name')
+  input.form-control(type='text' name='username' ng-model='formData.username' ng-required='true' placeholder='Input your chat user name')
   label(for='rooms') Available Chat Rooms
   select(name='rooms' ng-model='formData.room' ng-options='room as room.name for room in props.rooms')
-  gravatar-form(is-optional='true')
+gravatar-form(is-optional='true')
+.user-form
   hr
-  input(type='submit' value='Join Room' ng-click='joinChat()' ng-disabled='chatLogin.$invalid || formData.username.length === 0')
+  button(ng-click='joinChat()' ng-disabled='chatLogin.$invalid') Join Room
