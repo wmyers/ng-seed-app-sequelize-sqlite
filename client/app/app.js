@@ -31,7 +31,9 @@
 
     if (alreadyRegistered[name]) {
       module = origMethod(name);
-      module.requires.push.apply(module.requires, reqs);
+      if(reqs.length > 0){
+        module.requires.push.apply(module.requires, reqs);
+      }
     } else {
       module = origMethod(name, reqs, configFn);
       alreadyRegistered[name] = module;
@@ -67,4 +69,15 @@ angular.module('simpleSpaApp', [
         }
       });
   })
+
+  //debugger: state change watch functions
+  // .run(['$rootScope', '$state', function($rootScope, $state) {
+  //   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+  //     console.log('******* $stateChangeSuccess from', fromState.name, 'to', toState.name);
+  //   });
+  //
+  //   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+  //     console.log('******* $stateChangeError from', fromState.name, 'to', toState.name);
+  //   });
+  // }])
 ;

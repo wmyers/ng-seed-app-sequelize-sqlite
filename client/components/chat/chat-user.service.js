@@ -1,10 +1,7 @@
 'use strict';
 
 angular.module('chatMdul')
-.factory('chatUserSrvc',
-                        [
-                      '$location',
-                      function ($location) {
+.factory('chatUserSrvc', function () {
 
       var self = {
         username:'',
@@ -18,4 +15,4 @@ angular.module('chatMdul')
 
       return self;
 
-}]);
+});

@@ -22,12 +22,6 @@ module.exports = function(config) {
       'client/bower_components/angular-ui-router/release/angular-ui-router.js',
       'client/app/app.js',
       'client/app/app.coffee',
-
-      //explicitly load module constructor js files to avoid dependency
-      //fuck-up in unit tests caused by alphabetical loading
-      'client/app/dash/dash.js',
-      'client/app/auth/auth.js',
-
       'client/app/**/*.js',
       'client/app/**/*.coffee',
       'client/components/**/*.js',

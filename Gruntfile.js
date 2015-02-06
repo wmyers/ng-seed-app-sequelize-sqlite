@@ -532,7 +532,7 @@ module.exports = function (grunt) {
                '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.controller.js',
                '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.service.js',
                '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.directive.js',
-               //remove other stuff
+               //remove mock, spec, test files
                '!{.tmp,<%= yeoman.client %>}/app/app.js',
                '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
                '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',

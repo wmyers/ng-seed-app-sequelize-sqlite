@@ -9,13 +9,13 @@ angular.module('chatMdul')
     controller: 'chatCtrl'
   });
 })
-.run(['$rootScope', '$state', function($rootScope, $state) {
-  $rootScope.$on('$stateChangeError', function(ev, toS, toPs, fromS, fromPs, error) {
-    // if (error.chatUserReady === false) {
-    //   $state.go('dashboard.chatLogin');
-    // }
-  });
-}])
+// .run(['$rootScope', '$state', function($rootScope, $state) {
+//   $rootScope.$on('$stateChangeError', function(ev, toS, toPs, fromS, fromPs, error) {
+//     // if (error.chatUserReady === false) {
+//     //   $state.go('dashboard.chatLogin');
+//     // }
+//   });
+// }])
 .factory('chatSrvc',
 [
   '$location',
