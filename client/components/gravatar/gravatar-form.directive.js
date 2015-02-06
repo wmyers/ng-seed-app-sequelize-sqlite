@@ -5,6 +5,7 @@ angular.module('gravatarMdul')
   return {
       restrict: 'E',
       scope: {
+        isOptional:'=?',
         isShowSettings:'=?',
         isShowPreviewUrl:'=?',
         isShowPreview:'=?',
@@ -42,12 +43,13 @@ angular.module('gravatarMdul')
           size: 80,
           defaultImage:scope.props.defaultImages[0],
           rating:scope.props.ratings[0],
-          email:''
+          email:'',
+          avatarUrl:''
         };
 
         //TODO email field validation with $invalid allows an '@' without a '.' - maybe replace with regex
 
-        scope.setAvatarUrl = function(){
+        scope.getAvatarUrl = function(){
           var formData = scope.formData;
           var props = {
             s: formData.size,
@@ -55,11 +57,18 @@ angular.module('gravatarMdul')
             r: formData.rating.value
           };
           if(formData.email){
-            scope.service.getImageUrl(formData.email, props).then(function(url){
-              scope.props.avatarUrl = url;
-              scope.$evalAsync();
+            return scope.service.getImageUrl(formData.email, props).then(function(url){
+              return $q.when(url);
             });
           }
+          return $q.reject('Email missing');
+        };
+
+        scope.setAvatarUrl = function(){
+          scope.getAvatarUrl().then(function(url){
+            scope.formData.avatarUrl = url;
+            scope.$evalAsync();
+          });
         };
       },
       templateUrl: './components/gravatar/gravatar-form.html'

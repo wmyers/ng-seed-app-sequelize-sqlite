@@ -5,7 +5,6 @@
   $li-border-color: #ddd;
   $bg-color: #fff;
   $text-color: #333;
-  $corner-radius: 6px;
   $border-thickness: 2px;
 
   $bub-width: 300px; /*width of the speech bubble*/
@@ -13,15 +12,6 @@
   $bub-tri-size: 12px; /*size of the speech bubble triangle*/
   $bub-tri-size-inner: ($bub-tri-size - $border-thickness);
   $bub-tri-offset: 8px;
-
-  // component mixins
-  %curved-corners{
-    -webkit-border-radius: $corner-radius;
-    -moz-border-radius: $corner-radius;
-    -ms-border-radius: $corner-radius;
-    -o-border-radius: $corner-radius;
-    border-radius: $corner-radius;
-  }
 
   //avatar image
   %avatar-image{

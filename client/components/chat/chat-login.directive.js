@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chatMdul')
-.directive('chatLogin', ['$q', function($q) {
+.directive('chatLogin', ['$q', 'chatUserSrvc', '$state', function($q, chatUserSrvc, $state) {
   return {
       restrict: 'E',
       scope: {
@@ -18,26 +18,30 @@ angular.module('chatMdul')
         };
 
         scope.formData = {
-          email:''
+          username:'',
+          room: scope.props.rooms[0]
         };
 
         //TODO email field validation with $invalid allows an '@' without a '.' - maybe replace with regex
 
         scope.joinChat = function(){
 
-          //get gravatar
-          // var formData = scope.formData;
-          // var props = {
-          //   s: formData.size,
-          //   d: formData.defaultImage.value,
-          //   r: formData.rating.value
-          // };
-          // if(formData.email){
-          //   scope.service.getImageUrl(formData.email, props).then(function(url){
-          //     scope.props.avatarUrl = url;
-          //     scope.$evalAsync();
-          //   });
-          // }
+          //apply any synchronus values to chatUserSrvc
+          chatUserSrvc.username = scope.formData.username;
+          chatUserSrvc.room = scope.formData.room.value;
+
+          //get avatar url async from the child directive
+          var gravatarForm = element.find('gravatar-form');
+          var gfScope = gravatarForm.isolateScope();
+          gfScope.getAvatarUrl().then(function(url){
+            chatUserSrvc.avatarUrl = url;
+
+            //TODO check if name already taken
+
+            //go to chat state
+            $state.go('dashboard.chat');
+          });
+
         };
       },
       templateUrl: './components/chat/chat-login.html'

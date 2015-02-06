@@ -4,28 +4,34 @@ angular.module('chatMdul')
 .config(function($stateProvider){
   $stateProvider
   .state('dashboard.chat', {
-    url: '/chat-demo',
+    url: '/chat',
     templateUrl: './components/chat/chat.html',
-    controller: 'chatCtrl'
+    controller: 'chatCtrl',
+    resolve: {
+      auth: ['chatUserSrvc', '$state', function(chatUserSrvc, $state){
+        return chatUserSrvc.getChatUserValidated()
+        .catch(function(error){
+          $state.go('dashboard.chat-login');
+        });
+      }]
+    }
+  })
+  .state('dashboard.chat-login', {
+    url: '/chat-login',
+    template: '<chat-login/>'
   });
 })
-// .run(['$rootScope', '$state', function($rootScope, $state) {
-//   $rootScope.$on('$stateChangeError', function(ev, toS, toPs, fromS, fromPs, error) {
-//     // if (error.chatUserReady === false) {
-//     //   $state.go('dashboard.chatLogin');
-//     // }
-//   });
-// }])
 .factory('chatSrvc',
 [
   '$location',
   'socketFactory',
-  function ($location, socketFactory) {
+  'chatUserSrvc',
+  function ($location, socketFactory, chatUserSrvc) {
 
     //generate a socket
     var socket = socketFactory();
-    var roomId = 'room1';
-    var userName = 'will';
+    var roomId = chatUserSrvc.room;
+    var userName = chatUserSrvc.username;
 
     //TODO - check this regexp : get room id from url
     var getRoomId = function(){

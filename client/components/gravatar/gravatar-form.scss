@@ -1,12 +1,8 @@
-#gravatar-form{
-  input, select{
-    margin-bottom:15px;
-  }
-  select{
-    display:block;
-  }
-  .avatar-preview{
-    margin-top:20px;
-    text-align:center;
+.avatar-preview{
+  margin-top:10px;
+  margin-bottom:0;
+  text-align:center;
+  img{
+    @extend %curved-corners;
   }
 }
