@@ -40,15 +40,15 @@ angular.module('gravatarMdul')
 
         scope.formData = {
           size: 80,
-          defaultImage:scope.props.defaultImages[0],
+          defaultImage:scope.props.defaultImages[1],
           rating:scope.props.ratings[0],
           email:'',
           avatarUrl:''
         };
 
         scope.getAvatarUrl = function(options){
-          var formData = scope.formData;
           options = options || {};
+          var formData = scope.formData;
           var props = {
             s: formData.size,
             d: formData.defaultImage.value,
