@@ -64,9 +64,9 @@ angular.module('chatMdul')
     });
 
     //connection error handling
+    //currently just fully disconnect
     socket.on('connect_error', function(e) {
-      console.log('&*&*&*&*&*&* socket.io connection error detected in client');
-      socket.removeAllListeners();
+      console.log('&*&*&*&*&*&* socket.io connection error detected in chat client');
       socket.disconnect();
     });
 

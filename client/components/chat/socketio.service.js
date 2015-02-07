@@ -42,8 +42,10 @@ factory('socketFactory', ['$window', '$q', function ($window, $q) {
     };
 
     //disconnect wrapper
-    var disconnect = function (close) {
-      return socket.disconnect(close);
+    var disconnect = function () {
+      socket.removeAllListeners();
+      socket.io.reconnection(false);
+      return socket.disconnect(true);
     };
 
     //connect wrapper
