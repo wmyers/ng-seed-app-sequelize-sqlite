@@ -46,24 +46,31 @@ angular.module('gravatarMdul')
           avatarUrl:''
         };
 
-        scope.getAvatarUrl = function(){
+        scope.getAvatarUrl = function(options){
           var formData = scope.formData;
+          options = options || {};
+          var props = {
+            s: formData.size,
+            d: formData.defaultImage.value,
+            r: formData.rating.value
+          };
 
-          //TODO regex here or find way to get validity of html content
-          //NB email field validation with ng-required allows an '@' without a '.'
+          if(options.forceDefault){
+            props.f = 'y';
+          }
 
-          if(formData.email){
-            var props = {
-              s: formData.size,
-              d: formData.defaultImage.value,
-              r: formData.rating.value
-            };
+          //NB angular email form input validation with ng-required allows an '@' without a '.'
+          var regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
+          //requires regex match unless allowing default image(then email can be any string)
+          if(options.allowDefault || options.forceDefault || regex.exec(formData.email)){
             return scope.service.getImageUrl(formData.email, props).then(function(url){
               return $q.when(url);
             });
           }
-          return $q.reject('Email missing');
+          return $q.reject('Email incorrect');
         };
+
 
         scope.setAvatarUrl = function(){
           scope.getAvatarUrl().then(function(url){

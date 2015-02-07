@@ -74,7 +74,7 @@ factory('socketFactory', ['$window', '$q', function ($window, $q) {
     // var defaultPrefix = 'socket:',
     // ioSocket;
     //
-    // // forces an async callback? looks like this a bastardised way of defining a promise
+    // // forces an async callback? or promise related?
     // var asyncAngularify = function (socket, callback) {
     //   return callback ? function () {
     //     var args = arguments;

@@ -3,9 +3,12 @@
   .column
     ul.avatars
       li(ng-repeat="message in chatData.messages track by $index")
-        .avatar-image-left {{message.userName}}
+        .avatar-image-left
+          img(src="{{message.avatarUrl}}")
+          .username
+            p {{::message.userName}}
         .speech-bubble-left 
-          .speech-bubble-content {{message.msg}}
+          .speech-bubble-content {{::message.msg}}
         .clearfix
   .column.right
     form.write-section(id="chatinput")

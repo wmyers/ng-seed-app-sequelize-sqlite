@@ -12,15 +12,17 @@ module.exports = function(io){
 
       // console.log('$%$%$%$%$%$', data.userName, 'joined', data.roomId);
 
-      // var avatarUrl = gravatar.url(data.avatar, {s: '140', r: 'x', d: 'mm'});
-      // socket.emit('img', socket.avatar);
-
       socket.join(data.roomId);
     });
 
     socket.on('sendMessage', function(data){
       // console.log('$%$%$%$%$%$', data.userName, 'in', data.roomId, 'sent this message:', data.msg);
-      bigmouth.to(data.roomId).emit('receiveMessage', {msg: data.msg, userName: data.userName});
+      bigmouth.to(data.roomId).emit('receiveMessage',
+                                    {
+                                      msg: data.msg,
+                                      userName: data.userName,
+                                      avatarUrl: data.avatarUrl
+                                    });
     });
 
       // var usernames = [],
