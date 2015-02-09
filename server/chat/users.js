@@ -7,16 +7,17 @@ var checkUserExists = function(username){
   if(users.indexOf(username) > -1){
     return true;
   }
+  users.push(username);
   return false;
 }
 
 module.exports = {
-  addUser : function(user){
+  addUser : function(userData){
     return new BBPromise(function(resolve, reject){
-      if(checkUserExists(user.username)){
+      if(!checkUserExists(userData.username)){
         resolve(true);
       }else{
-        reject('username already taken');
+        reject('Username already taken');
       }
     })
   }

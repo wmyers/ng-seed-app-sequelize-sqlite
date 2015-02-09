@@ -34,3 +34,8 @@ a, a:link {
 a:hover, a:active {
   color: darken($color-links, 15%);
 }
+
+.error-message{
+  color:#ff0000;
+  font-size: 0.9em;
+}

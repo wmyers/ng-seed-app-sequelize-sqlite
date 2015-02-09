@@ -73,9 +73,13 @@ angular.module('gravatarMdul')
 
 
         scope.setAvatarUrl = function(){
+          scope.validationError = '';
           scope.getAvatarUrl().then(function(url){
             scope.formData.avatarUrl = url;
             scope.$evalAsync();
+          })
+          .catch(function(error){
+            scope.validationError = error;
           });
         };
       },

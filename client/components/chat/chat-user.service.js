@@ -23,8 +23,14 @@ angular.module('chatMdul')
           return $q.reject(new Error(msg));
         },
 
-        addChatUser:function(){
-
+        addChatUser:function(userData){
+          return $http.post('/api/chat-user/', userData)
+          .then(function(result) {
+            return $q.when(result);
+          })
+          .catch(function(error){
+            return $q.reject('Unable to add chat user. '+error.data);
+          });
         }
       };
 

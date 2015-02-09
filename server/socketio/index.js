@@ -10,7 +10,7 @@ module.exports = function(io){
 
     socket.on('subscribe',function(data){
 
-      // console.log('$%$%$%$%$%$', data.username, 'joined', data.room);
+      console.log('$%$%$%$%$%$', data.username, 'joined', data.room);
 
       socket.join(data.room);
     });
@@ -23,8 +23,8 @@ module.exports = function(io){
     });
 
     socket.on('sendMessage', function(data){
-      // console.log('$%$%$%$%$%$', data.username, 'in', data.roomId, 'sent this message:', data.msg);
-      bigmouth.to(data.roomId).emit('receiveMessage',
+      // console.log('$%$%$%$%$%$', data.username, 'in', data.room, 'sent this message:', data.msg);
+      bigmouth.to(data.room).emit('receiveMessage',
                                     {
                                       msg: data.msg,
                                       username: data.username,

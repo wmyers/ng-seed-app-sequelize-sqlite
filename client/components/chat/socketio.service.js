@@ -4,7 +4,7 @@
 //does not forward/broadcast socket events into the rootscope
 
 angular.module('chatMdul').
-factory('socketFactory', ['$window', '$q', function ($window, $q) {
+factory('socketFactory', ['$window', function ($window) {
 
   return function socketFactory(){
     //get a reference to the io global on the window object
