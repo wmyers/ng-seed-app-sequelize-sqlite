@@ -36,7 +36,9 @@ angular.module('chatMdul')
 
             //TODO check if name already taken
 
-            $state.go('dashboard.chat');
+            $state.go('dashboard.chat', { room: chatUserSrvc.room });
+
+
           }).catch(function(error){
 
             //clean any dirty value in the srvc

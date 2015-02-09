@@ -4,7 +4,7 @@ angular.module('chatMdul')
 .config(['$stateProvider', function($stateProvider){
   $stateProvider
   .state('dashboard.chat', {
-    url: '/chat',
+    url: '/chat/:room',
     templateUrl: './components/chat/chat.html',
     controller: 'chatCtrl',
     resolve: {
