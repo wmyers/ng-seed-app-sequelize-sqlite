@@ -1,4 +1,4 @@
- {{chatData.userName}} in {{chatData.roomId}}
+ {{chatData.username}} in {{chatData.roomId}}
 .chat
   .column
     ul.avatars
@@ -6,7 +6,7 @@
         .avatar-image-left
           img(src="{{message.avatarUrl}}")
           .username
-            p {{::message.userName}}
+            p {{::message.username}}
         .speech-bubble-left 
           p {{::message.msg}}
         .clearfix

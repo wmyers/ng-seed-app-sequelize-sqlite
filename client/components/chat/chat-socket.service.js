@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chatMdul')
-.factory('chatSrvc',
+.factory('chatSocketSrvc',
 [
   '$location',
   'socketFactory',
@@ -10,33 +10,42 @@ angular.module('chatMdul')
 
     //generate a socket
     var socket = socketFactory();
-    var roomId = chatUserSrvc.room;
-    var userName = chatUserSrvc.username;
-    var avatarUrl = chatUserSrvc.avatarUrl;
+    var srvc = chatUserSrvc;
 
-    //TODO - check this regexp : get room id from url
-    var getRoomId = function(){
-      return Number($location.path.match(/\/room\/(\d+)$/)[1]);
+    var joinRoom = function(){
+      console.log('joinRoom:', srvc.room);
+
+      socket.emit('subscribe', {username:srvc.username, room:srvc.room});
+    };
+
+    var leaveRoom = function(){
+      console.log('leaveRoom:', srvc.room);
+
+      socket.emit('unsubscribe', {username:srvc.username, room:srvc.room});
     };
 
     var sendMessage = function(msg){
       socket.emit('sendMessage',
       {
-        userName:userName,
-        roomId:roomId,
-        avatarUrl:avatarUrl,
+        username:srvc.username,
+        room:srvc.room,
+        avatarUrl:srvc.avatarUrl,
         msg: msg
       });
     };
 
-    var destroy = function(){
-      socket.removeAllListeners();
+    var disconnect = function(){
+      socket.disconnect();
+      self.connected = false;
     };
 
-    //request to join room
+    //connection
     socket.on('connect', function(){
-      console.log('joinRoom:', roomId);
-      socket.emit('joinRoom', {userName:userName, roomId:roomId});
+      console.log('chatSocketSrvc connected');
+      self.connected = true;
+
+      //join the pre-selected room immediately
+      self.joinRoom();
     });
 
     //receive messages
@@ -49,15 +58,18 @@ angular.module('chatMdul')
     //currently just fully disconnect
     socket.on('connect_error', function(e) {
       console.log('&*&*&*&*&*&* socket.io connection error detected in chat client');
-      socket.disconnect();
+
     });
 
     var self = {
+      connected:false,
+      disconnect:disconnect,
+      joinRoom:joinRoom,
+      leaveRoom:leaveRoom,
       sendMessage:sendMessage,
-      destroy:destroy,
       chatData:{
-        roomId:roomId,
-        userName:userName,
+        room:srvc.room,
+        username:srvc.username,
         messages:[],
       },
       socket:socket

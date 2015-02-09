@@ -8,35 +8,31 @@ module.exports = function(io){
       return Object.keys(io.nsps['/bigmouth'].adapter.rooms[roomId]);
     }
 
-    socket.on('joinRoom',function(data){
+    socket.on('subscribe',function(data){
 
-      // console.log('$%$%$%$%$%$', data.userName, 'joined', data.roomId);
+      // console.log('$%$%$%$%$%$', data.username, 'joined', data.room);
 
-      socket.join(data.roomId);
+      socket.join(data.room);
+    });
+
+    socket.on('unsubscribe',function(data){
+
+      // console.log('$%$%$%$%$%$', data.username, 'left', data.room);
+
+      socket.leave(data.room);
     });
 
     socket.on('sendMessage', function(data){
-      // console.log('$%$%$%$%$%$', data.userName, 'in', data.roomId, 'sent this message:', data.msg);
+      // console.log('$%$%$%$%$%$', data.username, 'in', data.roomId, 'sent this message:', data.msg);
       bigmouth.to(data.roomId).emit('receiveMessage',
                                     {
                                       msg: data.msg,
-                                      userName: data.userName,
+                                      username: data.username,
                                       avatarUrl: data.avatarUrl
                                     });
     });
 
-      // var usernames = [],
-      // avatars = [];
-      // usernames.push(chat.clients(data.id)[0].username);
-      // usernames.push(chat.clients(data.id)[1].username);
-      // avatars.push(chat.clients(data.id)[0].avatar);
-      // avatars.push(chat.clients(data.id)[1].avatar);
-      // chat.in(data.id).emit('startChat', {
-      //   boolean: true,
-      //   id: data.id,
-      //   users: usernames,
-      //   avatars: avatars
-      // });
+
 
 
     // socket.on('disconnect', function() {

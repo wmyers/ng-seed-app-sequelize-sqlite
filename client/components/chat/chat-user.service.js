@@ -1,7 +1,7 @@
  'use strict';
 
 angular.module('chatMdul')
-.factory('chatUserSrvc', ['$q', function ($q) {
+.factory('chatUserSrvc', ['$q', '$http', function ($q, $http) {
 
       var self = {
         username:'',
@@ -21,6 +21,10 @@ angular.module('chatMdul')
             return $q.when(true);
           }
           return $q.reject(new Error(msg));
+        },
+
+        addChatUser:function(){
+
         }
       };
 

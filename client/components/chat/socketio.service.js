@@ -45,7 +45,7 @@ factory('socketFactory', ['$window', '$q', function ($window, $q) {
     var disconnect = function () {
       socket.removeAllListeners();
       socket.io.reconnection(false);
-      return socket.disconnect(true);
+      return socket.disconnect();
     };
 
     //connect wrapper
@@ -55,6 +55,7 @@ factory('socketFactory', ['$window', '$q', function ($window, $q) {
 
     //wrapped socket
     var wrappedSocket = {
+      id: socket.id,
       on: addListener,
       addListener: addListener,
       once: addOnceListener,

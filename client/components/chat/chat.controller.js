@@ -4,25 +4,25 @@ angular.module('chatMdul')
 .controller('chatCtrl',
 [
   '$scope',
-  'chatSrvc',
-  function($scope, chatSrvc){
+  'chatSocketSrvc',
+  function($scope, chatSocketSrvc){
 
-    //expose chatSrvc to the view scope
-    $scope.chatData = chatSrvc.chatData;
+    //expose chatSocketSrvc chatData to the view scope
+    $scope.chatData = chatSocketSrvc.chatData;
 
     //Message input form submit
     $scope.submitMessage = function(){
-      chatSrvc.sendMessage($scope.chatinputtext);
+      chatSocketSrvc.sendMessage($scope.chatinputtext);
       $scope.chatinputtext = '';
     };
 
     //attach a listener to the socket to launch an async digest
-    chatSrvc.socket.on('receiveMessage', function(){
+    chatSocketSrvc.socket.on('receiveMessage', function(){
       //console.log('received chat data in controller');
       $scope.$evalAsync();
     });
 
     $scope.$on('$destroy', function (event) {
-      chatSrvc.destroy();
+      chatSocketSrvc.destroy();
     });
 }]);
