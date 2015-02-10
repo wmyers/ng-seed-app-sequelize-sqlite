@@ -1,5 +1,19 @@
 module.exports = function(io){
 
+  //set authentication middleware
+  // io.use(function(socket, next) {
+  //   var handshakeData = socket.request;
+  //   // make sure the handshake data looks good as before
+  //   // if error do this:
+  //   // next(new Error('not authorized');
+  //   // else just call next
+  //   next();
+  // });
+  // io.use(socketioJwt.authorize({
+  //   secret: 'your secret or public key',
+  //   handshake: true
+  // }));
+
   //auto create bigmouth namespace
   var bigmouth = io.of('/bigmouth').on('connection', function (socket) {
 
