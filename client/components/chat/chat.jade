@@ -8,7 +8,8 @@
           .username
             p {{::message.username}}
         .speech-bubble-left 
-          p {{::message.msg}}
+          p {{::message.msg}} 
+            span.timestamp {{message.moment}} 
         .clearfix
   .column.right
     form.write-section(id="chatinput")

@@ -24,12 +24,17 @@ module.exports = function(io){
 
     socket.on('sendMessage', function(data){
       // console.log('$%$%$%$%$%$', data.username, 'in', data.room, 'sent this message:', data.msg);
-      bigmouth.to(data.room).emit('receiveMessage',
-                                    {
-                                      msg: data.msg,
-                                      username: data.username,
-                                      avatarUrl: data.avatarUrl
-                                    });
+
+      var msgData = {
+        msg: data.msg,
+        username: data.username,
+        avatarUrl: data.avatarUrl
+      }
+      //add timestamp
+      msgData.timestamp = Date.now();
+
+      bigmouth.to(data.room).emit('receiveMessage',msgData);
+
     });
 
 

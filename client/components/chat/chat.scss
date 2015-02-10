@@ -68,6 +68,13 @@
       overflow: hidden;
       text-overflow: ellipsis;
       vertical-align: middle;
+
+      span.timestamp{
+        display:block;
+        font-size: 0.7em;
+        color:#ccc;
+        font-style: italic;
+      }
     }
   }
 

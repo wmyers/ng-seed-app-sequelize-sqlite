@@ -53,6 +53,7 @@ angular.module('chatMdul')
           },
           function(error){
             //set a custom validity message - do it here rather than in catch
+            //to specifically trap any username error
             usernameInput.setCustomValidity(error);
 
             //fallback error display

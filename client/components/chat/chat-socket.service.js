@@ -39,6 +39,12 @@ angular.module('chatMdul')
       self.connected = false;
     };
 
+    var parseMessageTimestamps = function(){
+      self.chatData.messages.map(function (message){
+        message.moment = moment(message.timestamp).fromNow();
+      });
+    };
+
     //connection
     socket.on('connect', function(){
       console.log('chatSocketSrvc connected');
@@ -52,13 +58,13 @@ angular.module('chatMdul')
     socket.on('receiveMessage', function(data){
       console.log('received chat data:', data);
       self.chatData.messages.push(data);
+      parseMessageTimestamps();
     });
 
     //connection error handling
     //currently just fully disconnect
     socket.on('connect_error', function(e) {
       console.log('&*&*&*&*&*&* socket.io connection error detected in chat client');
-
     });
 
     var self = {
