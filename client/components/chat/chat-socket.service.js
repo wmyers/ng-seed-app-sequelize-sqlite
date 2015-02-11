@@ -6,7 +6,8 @@ angular.module('chatMdul')
   '$location',
   'socketFactory',
   'chatUserSrvc',
-  function ($location, socketFactory, chatUserSrvc) {
+  'authSrvc',
+  function ($location, socketFactory, chatUserSrvc, authSrvc) {
 
     //generate a socket
     var socket = socketFactory();
@@ -36,7 +37,6 @@ angular.module('chatMdul')
 
     var disconnect = function(){
       socket.disconnect();
-      self.connected = false;
     };
 
     var parseMessageTimestamps = function(){
@@ -47,10 +47,14 @@ angular.module('chatMdul')
 
     //connection
     socket.on('connect', function(){
-      console.log('chatSocketSrvc connected');
-      self.connected = true;
+      //authenticate
+      socket.emit('authenticate', {token: authSrvc.token});
+    });
 
-      //join the pre-selected room immediately
+    //authentication confirmed - server emits to the socket's unique id room
+    socket.on('authenticationSuccess', function(){
+      console.log('authenticationSuccess');
+      //join the room defined in chat user srvc
       self.joinRoom();
     });
 
@@ -62,13 +66,11 @@ angular.module('chatMdul')
     });
 
     //connection error handling
-    //currently just fully disconnect
     socket.on('connect_error', function(e) {
       console.log('&*&*&*&*&*&* socket.io connection error detected in chat client');
     });
 
     var self = {
-      connected:false,
       disconnect:disconnect,
       joinRoom:joinRoom,
       leaveRoom:leaveRoom,

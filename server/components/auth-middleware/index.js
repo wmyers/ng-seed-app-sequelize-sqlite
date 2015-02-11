@@ -1,33 +1,51 @@
 'use strict';
 
-/**
- * Express middleware functions to help with authentication.
- */
-
+var UnauthorizedError = require('./UnauthorizedError');
 var jwt = require('jwt-simple');
-
 var sessionSecret = process.env.SESSION_SECRET;
 
-module.exports = {
-  required: function required(req, res, next) {
+var authenticateToken = function(encodedToken, callback){
+  var token;
+  try {
+    token = jwt.decode(encodedToken, sessionSecret);
+  } catch (e) {
+    return callback(new UnauthorizedError(400, e.toString()));
+  }
+
+  var now = new Date().getTime()/1000;
+  if (now >= token.exp){
+    return callback(new UnauthorizedError(401, 'Expired session.'));
+  }
+
+  return callback(null, token);
+}
+
+var getTokenFromHeader = function(req, callback){
+  try{
     var authHeader = req.header('Authorization');
     var encodedToken = (/^Bearer (.*)$/i.exec(authHeader) || [])[1];
     if (!encodedToken) {
-      return res.status(403).send('Missing bearer token in Authorization header field.');
+      return callback(new UnauthorizedError(403, 'Missing bearer token in Authorization header field.'));
     }
 
-    var token;
-    try {
-      token = jwt.decode(encodedToken, sessionSecret);
-    } catch (e) {
-      //console.log('**** auth.required jwt token error', e);
-      return res.status(400).send(e.toString());
-    }
+    authenticateToken(encodedToken, callback);
 
-    let now = new Date().getTime()/1000;
-    if (now >= token.exp) return res.status(401).send('Expired session.');
+  }catch(error){
+    callback(error);
+  }
+}
 
-    req.auth = token; // Store auth details as a request property.
-    next();
+module.exports = {
+  authenticateToken:authenticateToken,
+  getTokenFromHeader:getTokenFromHeader,
+  required: function required(req, res, next) {
+    getTokenFromHeader(req, function(error, token){
+      if(error){
+        var code = error.code || 400;
+        return res.status(code).send(error.message);
+      }
+      req.auth = token; // Store auth details as a request property.
+      next();
+    });
   }
 }

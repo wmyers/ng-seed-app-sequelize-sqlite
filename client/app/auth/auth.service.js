@@ -55,6 +55,7 @@ angular.module('authMdul')
   Register the token in the app
   */
   function registerToken(token){
+    //TODO
     // Always send the Authorization HTTP header.
     // This may potentially be susceptible to MITM attacks,
     // consider upgrading to full request interceptor in future.
