@@ -31,7 +31,7 @@ var getTokenFromHeader = function(req, callback){
     authenticateToken(encodedToken, callback);
 
   }catch(error){
-    callback(error);
+    return callback(error);
   }
 }
 

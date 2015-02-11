@@ -26,7 +26,8 @@ router.post('/login', function(req, res, next) {
     //user exists, check password
     return bcrypt.compareAsync(req.body.password, user.password)
     .then(function (success){
-      //all good
+      //all good generate a token with a 5 day expiry
+      //TODO make expiry an env variable
       var payload = {
         id: user.id,
         exp: Math.ceil(moment().add(5, 'days').format('X'))
